@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Head, useForm } from '@inertiajs/react';
 import InstructorLayout from '@/Layouts/InstructorLayout';
 import FlashMessage from '@/Components/Shared/FlashMessage';
@@ -10,9 +11,20 @@ import {
     Text,
     VStack,
     HStack,
+    Spinner,
 } from '@chakra-ui/react';
 
 const sel = { width: '100%', padding: '8px 12px', borderRadius: '6px', border: '1px solid #E2E8F0', fontSize: '14px', background: 'white' };
+
+const AI_DOMAINS = [
+    'Web Development',
+    'MERN Stack',
+    'Data Science',
+    'AI Engineering',
+    'Data Analytics',
+    'PHP',
+    'Cloud Architecture',
+];
 
 export default function Create() {
     const { data, setData, post, processing, errors } = useForm({
@@ -28,6 +40,53 @@ export default function Create() {
         project_requirements: '',
     });
 
+    const [aiOpen, setAiOpen] = useState(false);
+    const [aiDomain, setAiDomain] = useState('Web Development');
+    const [aiContext, setAiContext] = useState('');
+    const [aiGenerating, setAiGenerating] = useState(false);
+    const [aiError, setAiError] = useState('');
+
+    const handleAiGenerate = async () => {
+        setAiGenerating(true);
+        setAiError('');
+        try {
+            const csrf = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') ?? '';
+            const res = await fetch(route('instructor.tasks.ai-generate-sync'), {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrf,
+                    'Accept': 'application/json',
+                },
+                body: JSON.stringify({
+                    domain: aiDomain,
+                    type: data.type,
+                    difficulty: data.difficulty,
+                    additional_context: aiContext || null,
+                }),
+            });
+
+            if (!res.ok) {
+                const err = await res.json().catch(() => ({}));
+                throw new Error(err.message || `Server error ${res.status}`);
+            }
+
+            const result = await res.json();
+
+            if (result.title) setData('title', result.title);
+            if (result.description) setData('description', result.description);
+            if (result.submission_guidelines) setData('project_requirements', result.submission_guidelines);
+            if (Array.isArray(result.test_cases)) {
+                setData('test_cases', JSON.stringify(result.test_cases, null, 2));
+            }
+            setAiOpen(false);
+        } catch (err) {
+            setAiError(err.message || 'AI generation failed. Please try again.');
+        } finally {
+            setAiGenerating(false);
+        }
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
         post(route('instructor.tasks.store'));
@@ -40,6 +99,93 @@ export default function Create() {
 
             <Box maxW="3xl" mx="auto">
                 <Text fontSize="2xl" fontWeight="bold" mb={6}>Create New Task</Text>
+
+                {/* AI Generation Card */}
+                <Box mb={6} borderWidth="1px" borderRadius="lg" borderColor="purple.200" overflow="hidden">
+                    <HStack
+                        px={5}
+                        py={4}
+                        bg={aiOpen ? 'purple.50' : 'white'}
+                        justify="space-between"
+                        cursor="pointer"
+                        onClick={() => setAiOpen(!aiOpen)}
+                        _hover={{ bg: 'purple.50' }}
+                        transition="background 0.15s"
+                    >
+                        <HStack gap={2}>
+                            <Text fontSize="lg">✨</Text>
+                            <Text fontWeight="semibold" color="purple.700">Generate with AI</Text>
+                            <Text fontSize="sm" color="gray.500">— Let Claude create a task for you</Text>
+                        </HStack>
+                        <Text color="purple.500" fontSize="sm" fontWeight="medium">
+                            {aiOpen ? '▲ Collapse' : '▼ Expand'}
+                        </Text>
+                    </HStack>
+
+                    {aiOpen && (
+                        <Box px={5} py={5} bg="purple.50" borderTopWidth="1px" borderColor="purple.100">
+                            <VStack gap={4} align="stretch">
+                                <SimpleGrid columns={{ base: 1, md: 2 }} gap={4}>
+                                    <Box>
+                                        <Text fontSize="sm" fontWeight="medium" mb={1}>Domain</Text>
+                                        <select
+                                            value={aiDomain}
+                                            onChange={(e) => setAiDomain(e.target.value)}
+                                            style={{ ...sel, background: 'white' }}
+                                        >
+                                            {AI_DOMAINS.map((d) => (
+                                                <option key={d} value={d}>{d}</option>
+                                            ))}
+                                        </select>
+                                    </Box>
+                                    <Box>
+                                        <Text fontSize="sm" fontWeight="medium" mb={1}>Uses form Type &amp; Difficulty above</Text>
+                                        <Box px={3} py={2} bg="white" borderRadius="md" borderWidth="1px" borderColor="gray.200" fontSize="sm" color="gray.600">
+                                            Type: <strong>{data.type}</strong> &nbsp;|&nbsp; Difficulty: <strong>{data.difficulty}</strong>
+                                        </Box>
+                                    </Box>
+                                </SimpleGrid>
+
+                                <Box>
+                                    <Text fontSize="sm" fontWeight="medium" mb={1}>Additional Context (optional)</Text>
+                                    <Textarea
+                                        value={aiContext}
+                                        onChange={(e) => setAiContext(e.target.value)}
+                                        rows={3}
+                                        placeholder="e.g. Focus on React hooks, include authentication, suitable for 2nd week of bootcamp..."
+                                        bg="white"
+                                    />
+                                </Box>
+
+                                {aiError && (
+                                    <Box px={3} py={2} bg="red.50" borderRadius="md" borderWidth="1px" borderColor="red.200">
+                                        <Text fontSize="sm" color="red.600">{aiError}</Text>
+                                    </Box>
+                                )}
+
+                                <HStack justify="flex-end">
+                                    <Button
+                                        onClick={handleAiGenerate}
+                                        disabled={aiGenerating}
+                                        colorPalette="purple"
+                                        size="sm"
+                                    >
+                                        {aiGenerating ? (
+                                            <HStack gap={2}>
+                                                <Spinner size="xs" />
+                                                <Text>Generating...</Text>
+                                            </HStack>
+                                        ) : '✨ Generate Task'}
+                                    </Button>
+                                </HStack>
+
+                                <Text fontSize="xs" color="gray.500">
+                                    AI will populate the Title, Description, and relevant fields below. You can edit before saving.
+                                </Text>
+                            </VStack>
+                        </Box>
+                    )}
+                </Box>
 
                 <Box as="form" onSubmit={handleSubmit} bg="white" p={8} borderRadius="lg" boxShadow="sm" borderWidth="1px">
                     <VStack gap={6} align="stretch">

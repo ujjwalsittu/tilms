@@ -7,6 +7,7 @@ use App\Models\CertificateTemplate;
 use App\Models\Cohort;
 use App\Models\CohortEnrollment;
 use App\Models\User;
+use App\Jobs\Certificate\GenerateCertificatePdf;
 use Illuminate\Support\Str;
 
 class CertificateService
@@ -41,7 +42,7 @@ class CertificateService
         $uuid = (string) Str::uuid();
         $certNumber = 'CERT-' . now()->format('Y') . '-' . str_pad(Certificate::count() + 1, 6, '0', STR_PAD_LEFT);
 
-        return Certificate::create([
+        $certificate = Certificate::create([
             'uuid' => $uuid,
             'student_id' => $enrollment->student_id,
             'cohort_id' => $cohort->id,
@@ -61,5 +62,9 @@ class CertificateService
             ],
             'created_at' => now(),
         ]);
+
+        GenerateCertificatePdf::dispatch($certificate);
+
+        return $certificate;
     }
 }

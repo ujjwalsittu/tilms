@@ -16,6 +16,7 @@ class InstructorProfile extends Model
         'github_username',
         'payout_details',
         'revenue_share_percent',
+        'is_verified',
     ];
 
     protected function casts(): array
@@ -23,6 +24,7 @@ class InstructorProfile extends Model
         return [
             'payout_details'        => 'encrypted:json',
             'revenue_share_percent' => 'decimal:2',
+            'is_verified'           => 'boolean',
         ];
     }
 

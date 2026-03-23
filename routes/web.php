@@ -7,6 +7,10 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
+// Cohort-specific registration (public, before auth)
+Route::get('/register/{cohort:slug}', [App\Http\Controllers\Auth\CohortRegisterController::class, 'create'])->name('cohort.register');
+Route::post('/register/{cohort:slug}', [App\Http\Controllers\Auth\CohortRegisterController::class, 'store'])->name('cohort.register.store');
+
 // Public routes
 Route::get('/', function () {
     return redirect()->route('login');
@@ -109,6 +113,7 @@ Route::middleware(['auth', 'verified', 'role:instructor'])
         // Task Bank
         Route::resource('tasks', Instructor\TaskBankController::class);
         Route::post('tasks/ai-generate', [Instructor\TaskBankController::class, 'aiGenerate'])->name('tasks.ai-generate')->middleware('throttle:ai');
+        Route::post('tasks/ai-generate-sync', [Instructor\TaskBankController::class, 'aiGenerateSync'])->name('tasks.ai-generate-sync');
 
         // Submissions
         Route::get('submissions', [Instructor\SubmissionReviewController::class, 'index'])->name('submissions.index');

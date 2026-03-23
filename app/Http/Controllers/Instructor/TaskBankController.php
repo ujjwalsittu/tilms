@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Instructor;
 
 use App\Http\Controllers\Controller;
 use App\Models\Task;
+use App\Services\ClaudeAiService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -122,6 +123,26 @@ class TaskBankController extends Controller
         \App\Jobs\Ai\GenerateTask::dispatch($task, $validated['domain'], $validated['additional_context']);
 
         return back()->with('success', 'AI task generation started. Content will be updated shortly.');
+    }
+
+    public function aiGenerateSync(Request $request, ClaudeAiService $ai)
+    {
+        $validated = $request->validate([
+            'domain' => 'required|string|max:100',
+            'type' => 'required|in:individual,project',
+            'difficulty' => 'required|in:beginner,intermediate,advanced',
+            'additional_context' => 'nullable|string|max:2000',
+        ]);
+
+        $result = $ai->generateTask(
+            $validated['domain'],
+            $validated['type'],
+            $validated['difficulty'],
+            $validated['additional_context'],
+            auth()->id()
+        );
+
+        return response()->json($result);
     }
 
     protected function authorizeOwnership(Task $task): void

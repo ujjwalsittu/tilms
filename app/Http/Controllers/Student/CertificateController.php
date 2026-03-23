@@ -24,8 +24,8 @@ class CertificateController extends Controller
     {
         abort_if($certificate->student_id !== auth()->id(), 403);
 
-        if ($certificate->pdf_path && file_exists(storage_path('app/' . $certificate->pdf_path))) {
-            return response()->download(storage_path('app/' . $certificate->pdf_path));
+        if ($certificate->pdf_path && \Storage::exists($certificate->pdf_path)) {
+            return \Storage::download($certificate->pdf_path, "certificate-{$certificate->certificate_number}.pdf");
         }
 
         // Fallback: show certificate view

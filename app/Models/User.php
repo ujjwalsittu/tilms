@@ -34,6 +34,12 @@ class User extends Authenticatable
         'referral_code',
         'referred_by_user_id',
         'last_login_at',
+        'date_of_birth',
+        'college_name',
+        'course_name',
+        'semester',
+        'github_username',
+        'github_token',
     ];
 
     protected $hidden = [
@@ -55,6 +61,7 @@ class User extends Authenticatable
             'id_verified_at'             => 'datetime',
             'last_login_at'              => 'datetime',
             'deleted_at'                 => 'datetime',
+            'date_of_birth'              => 'date',
         ];
     }
 

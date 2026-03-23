@@ -110,11 +110,12 @@ class InstructorController extends Controller
         }
 
         $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $user->id],
-            'password' => ['nullable', 'string', 'min:8'],
+            'name'           => ['required', 'string', 'max:255'],
+            'email'          => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $user->id],
+            'password'       => ['nullable', 'string', 'min:8'],
             'specialization' => ['nullable', 'string', 'max:255'],
-            'title' => ['nullable', 'string', 'max:255'],
+            'title'          => ['nullable', 'string', 'max:255'],
+            'is_verified'    => ['nullable', 'boolean'],
         ]);
 
         $user->update([
@@ -127,7 +128,8 @@ class InstructorController extends Controller
             ['user_id' => $user->id],
             [
                 'specialization' => $validated['specialization'] ?? null,
-                'title' => $validated['title'] ?? null,
+                'title'          => $validated['title'] ?? null,
+                'is_verified'    => $request->boolean('is_verified'),
             ]
         );
 
