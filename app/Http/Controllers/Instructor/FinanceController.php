@@ -50,7 +50,7 @@ class FinanceController extends Controller
                 ];
             });
 
-        return Inertia::render('Instructor/Finance/Index', compact(
+        return Inertia::render('Instructor/Finance/Overview', compact(
             'totalEarnings',
             'monthlyBreakdown',
             'perCohortBreakdown'

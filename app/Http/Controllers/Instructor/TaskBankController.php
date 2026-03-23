@@ -27,7 +27,7 @@ class TaskBankController extends Controller
 
         $tasks = $query->latest()->paginate(15)->withQueryString();
 
-        return Inertia::render('Instructor/Tasks/Index', [
+        return Inertia::render('Instructor/Tasks/Bank', [
             'tasks'   => $tasks,
             'filters' => $request->only(['type', 'difficulty', 'search']),
         ]);
@@ -65,7 +65,7 @@ class TaskBankController extends Controller
     {
         $this->authorizeOwnership($task);
 
-        return Inertia::render('Instructor/Tasks/Show', compact('task'));
+        return Inertia::render('Instructor/Tasks/Edit', compact('task'));
     }
 
     public function edit(Task $task)

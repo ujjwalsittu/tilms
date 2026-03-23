@@ -50,7 +50,7 @@ class StudentRosterController extends Controller
             ];
         });
 
-        return Inertia::render('Instructor/Roster/Index', compact('cohort', 'students'));
+        return Inertia::render('Instructor/Students/Roster', compact('cohort', 'students'));
     }
 
     public function show(Cohort $cohort, User $user)
@@ -86,7 +86,7 @@ class StudentRosterController extends Controller
 
         $enrollment = $cohort->enrollments()->where('student_id', $user->id)->first();
 
-        return Inertia::render('Instructor/Roster/Show', compact('cohort', 'user', 'taskProgress', 'enrollment'));
+        return Inertia::render('Instructor/Students/StudentDetail', compact('cohort', 'user', 'taskProgress', 'enrollment'));
     }
 
     protected function authorizeCohortOwnership(Cohort $cohort): void

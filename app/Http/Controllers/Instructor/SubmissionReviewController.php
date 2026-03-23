@@ -35,7 +35,7 @@ class SubmissionReviewController extends Controller
             ->select('id', 'title')
             ->get();
 
-        return Inertia::render('Instructor/Submissions/Index', [
+        return Inertia::render('Instructor/Submissions/ReviewQueue', [
             'submissions' => $submissions,
             'cohorts'     => $cohorts,
             'filters'     => $request->only(['status', 'cohort_id']),
@@ -53,7 +53,7 @@ class SubmissionReviewController extends Controller
             'aiEvaluationReport',
         ]);
 
-        return Inertia::render('Instructor/Submissions/Show', compact('submission'));
+        return Inertia::render('Instructor/Submissions/Review', compact('submission'));
     }
 
     public function grade(Request $request, TaskSubmission $submission)

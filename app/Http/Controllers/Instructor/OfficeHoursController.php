@@ -16,7 +16,7 @@ class OfficeHoursController extends Controller
             ->orderBy('starts_at')
             ->get();
 
-        return Inertia::render('Instructor/OfficeHours/Index', compact('slots'));
+        return Inertia::render('Instructor/OfficeHours/Schedule', compact('slots'));
     }
 
     public function store(Request $request)
