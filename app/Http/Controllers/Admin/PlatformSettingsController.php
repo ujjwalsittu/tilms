@@ -12,11 +12,7 @@ class PlatformSettingsController extends Controller
 {
     public function edit()
     {
-        $settings = PlatformSetting::all()
-            ->groupBy('group')
-            ->map(function ($group) {
-                return $group->pluck('value', 'key');
-            });
+        $settings = PlatformSetting::all()->pluck('value', 'key')->toArray();
 
         return Inertia::render('Admin/Settings/Platform', [
             'settings' => $settings,
@@ -25,9 +21,7 @@ class PlatformSettingsController extends Controller
 
     public function update(Request $request)
     {
-        $validated = $request->validate([
-            'settings' => ['required', 'array'],
-            'settings.*' => ['nullable', 'string'],
+        $request->validate([
             'logo' => ['nullable', 'image', 'max:2048'],
         ]);
 
@@ -37,14 +31,26 @@ class PlatformSettingsController extends Controller
 
             PlatformSetting::updateOrCreate(
                 ['key' => 'logo_path'],
-                ['value' => $logoPath, 'group' => 'branding']
+                ['value' => $logoPath, 'type' => 'file', 'group' => 'branding']
             );
         }
 
-        foreach ($validated['settings'] as $key => $value) {
-            PlatformSetting::where('key', $key)->update(['value' => $value]);
+        $allowedKeys = [
+            'platform_name', 'theme_color',
+            'signatory_name', 'signatory_position',
+            'claude_default_model', 'razorpay_environment',
+            'mail_from_address', 'mail_from_name',
+        ];
+
+        foreach ($allowedKeys as $key) {
+            if ($request->has($key)) {
+                PlatformSetting::updateOrCreate(
+                    ['key' => $key],
+                    ['value' => $request->input($key)]
+                );
+            }
         }
 
-        return back()->with('success', 'Platform settings updated successfully.');
+        return back()->with('success', 'Platform settings updated.');
     }
 }

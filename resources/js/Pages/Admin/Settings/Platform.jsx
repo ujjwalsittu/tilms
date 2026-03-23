@@ -1,115 +1,129 @@
 import { Head, useForm } from '@inertiajs/react';
 import AdminLayout from '@/Layouts/AdminLayout';
-import {
-    Box, Button, Input, VStack, Text, Flex, Field,
-} from '@chakra-ui/react';
+import FlashMessage from '@/Components/Shared/FlashMessage';
+import { Box, Button, Input, VStack, Text, Flex, Heading } from '@chakra-ui/react';
 
-export default function PlatformSettings({ settings }) {
-    const { data, setData, put, processing, errors, recentlySuccessful } = useForm({
-        platform_name: settings?.platform_name ?? '',
+function SectionHeading({ children }) {
+    return (
+        <Heading size="md" mt={4} mb={2} pb={2} borderBottomWidth="1px" borderColor="gray.200">
+            {children}
+        </Heading>
+    );
+}
+
+function Field({ label, error, children, description }) {
+    return (
+        <Box>
+            <Text fontSize="sm" fontWeight="medium" mb={1}>{label}</Text>
+            {children}
+            {description && <Text fontSize="xs" color="gray.500" mt={1}>{description}</Text>}
+            {error && <Text fontSize="sm" color="red.500" mt={1}>{error}</Text>}
+        </Box>
+    );
+}
+
+export default function Platform({ settings = {} }) {
+    const { data, setData, post, processing, errors } = useForm({
+        platform_name: settings.platform_name || 'TILMS',
+        theme_color: settings.theme_color || '#4F46E5',
+        signatory_name: settings.signatory_name || '',
+        signatory_position: settings.signatory_position || '',
+        mail_from_address: settings.mail_from_address || '',
+        mail_from_name: settings.mail_from_name || '',
+        claude_default_model: settings.claude_default_model || 'claude-sonnet-4-20250514',
+        razorpay_environment: settings.razorpay_environment || 'test',
         logo: null,
-        theme_color: settings?.theme_color ?? '#3B82F6',
-        signatory_name: settings?.signatory_name ?? '',
-        signatory_position: settings?.signatory_position ?? '',
+        _method: 'PUT',
     });
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        put(route('admin.settings.platform.update'), {
-            forceFormData: true,
-        });
+        post(route('admin.settings.platform.update'), { forceFormData: true });
     };
 
     return (
         <AdminLayout title="Platform Settings">
-            <Head title="Platform Settings - Admin" />
+            <Head title="Platform Settings" />
+            <FlashMessage />
 
-            <Box bg="white" borderRadius="lg" boxShadow="sm" borderWidth="1px" borderColor="gray.200" p={6} maxW="2xl">
-                <Text fontSize="xl" fontWeight="bold" mb={6}>Platform Settings</Text>
-
+            <Box bg="white" p={6} borderRadius="lg" boxShadow="sm" borderWidth="1px" maxW="2xl">
                 <form onSubmit={handleSubmit}>
-                    <VStack gap={5} align="stretch">
-                        <Field.Root invalid={!!errors.platform_name}>
-                            <Field.Label>Platform Name</Field.Label>
-                            <Input
-                                value={data.platform_name}
-                                onChange={(e) => setData('platform_name', e.target.value)}
-                                placeholder="e.g. TILMS"
-                            />
-                            {errors.platform_name && <Field.ErrorText>{errors.platform_name}</Field.ErrorText>}
-                        </Field.Root>
+                    <VStack gap={4} align="stretch">
 
-                        <Field.Root invalid={!!errors.logo}>
-                            <Field.Label>Logo</Field.Label>
-                            {settings?.logo_path && (
-                                <Box mb={2}>
-                                    <Text fontSize="sm" color="gray.500" mb={1}>Current logo:</Text>
-                                    <img
-                                        src={`/storage/${settings.logo_path}`}
-                                        alt="Current logo"
-                                        style={{ height: 48, objectFit: 'contain' }}
-                                    />
-                                </Box>
-                            )}
-                            <Input
-                                type="file"
-                                accept="image/*"
-                                onChange={(e) => setData('logo', e.target.files[0])}
-                                p={1}
-                            />
-                            {errors.logo && <Field.ErrorText>{errors.logo}</Field.ErrorText>}
-                        </Field.Root>
+                        {/* Branding */}
+                        <SectionHeading>Branding</SectionHeading>
 
-                        <Field.Root invalid={!!errors.theme_color}>
-                            <Field.Label>Theme Color</Field.Label>
+                        <Field label="Platform Name" error={errors.platform_name}>
+                            <Input value={data.platform_name} onChange={e => setData('platform_name', e.target.value)} />
+                        </Field>
+
+                        <Field label="Logo" error={errors.logo} description={settings.logo_path ? `Current: ${settings.logo_path}` : 'Upload your platform logo'}>
+                            <Input type="file" accept="image/*" onChange={e => setData('logo', e.target.files[0])} p={1} />
+                        </Field>
+
+                        <Field label="Theme Color" error={errors.theme_color}>
                             <Flex gap={3} align="center">
-                                <Input
-                                    type="color"
-                                    value={data.theme_color}
-                                    onChange={(e) => setData('theme_color', e.target.value)}
-                                    w="16"
-                                    h="10"
-                                    p={1}
-                                    cursor="pointer"
-                                />
-                                <Input
-                                    value={data.theme_color}
-                                    onChange={(e) => setData('theme_color', e.target.value)}
-                                    placeholder="#3B82F6"
-                                    maxW="xs"
-                                />
+                                <Input type="color" value={data.theme_color} onChange={e => setData('theme_color', e.target.value)} w="60px" h="40px" p={1} cursor="pointer" />
+                                <Input value={data.theme_color} onChange={e => setData('theme_color', e.target.value)} maxW="150px" />
                             </Flex>
-                            {errors.theme_color && <Field.ErrorText>{errors.theme_color}</Field.ErrorText>}
-                        </Field.Root>
+                        </Field>
 
-                        <Field.Root invalid={!!errors.signatory_name}>
-                            <Field.Label>Certificate Signatory Name</Field.Label>
-                            <Input
-                                value={data.signatory_name}
-                                onChange={(e) => setData('signatory_name', e.target.value)}
-                                placeholder="e.g. John Doe"
-                            />
-                            {errors.signatory_name && <Field.ErrorText>{errors.signatory_name}</Field.ErrorText>}
-                        </Field.Root>
+                        {/* Email Settings */}
+                        <SectionHeading>Email Settings</SectionHeading>
 
-                        <Field.Root invalid={!!errors.signatory_position}>
-                            <Field.Label>Certificate Signatory Position</Field.Label>
-                            <Input
-                                value={data.signatory_position}
-                                onChange={(e) => setData('signatory_position', e.target.value)}
-                                placeholder="e.g. Director of Education"
-                            />
-                            {errors.signatory_position && <Field.ErrorText>{errors.signatory_position}</Field.ErrorText>}
-                        </Field.Root>
+                        <Field label="From Email Address" error={errors.mail_from_address} description="This email is used as the sender for all platform emails. Must match your Resend verified domain.">
+                            <Input type="email" value={data.mail_from_address} onChange={e => setData('mail_from_address', e.target.value)} placeholder="noreply@yourdomain.com" />
+                        </Field>
 
-                        <Flex gap={3} align="center" pt={2}>
-                            <Button type="submit" colorPalette="blue" loading={processing}>
-                                Save Settings
-                            </Button>
-                            {recentlySuccessful && (
-                                <Text color="green.500" fontSize="sm">Settings saved successfully!</Text>
-                            )}
+                        <Field label="From Name" error={errors.mail_from_name} description="Display name shown in recipients' inboxes">
+                            <Input value={data.mail_from_name} onChange={e => setData('mail_from_name', e.target.value)} placeholder="TILMS" />
+                        </Field>
+
+                        {/* Certificates */}
+                        <SectionHeading>Certificate Signatory</SectionHeading>
+
+                        <Flex gap={4}>
+                            <Box flex={1}>
+                                <Text fontSize="sm" fontWeight="medium" mb={1}>Signatory Name</Text>
+                                <Input value={data.signatory_name} onChange={e => setData('signatory_name', e.target.value)} placeholder="John Doe" />
+                            </Box>
+                            <Box flex={1}>
+                                <Text fontSize="sm" fontWeight="medium" mb={1}>Signatory Position</Text>
+                                <Input value={data.signatory_position} onChange={e => setData('signatory_position', e.target.value)} placeholder="Director" />
+                            </Box>
                         </Flex>
+
+                        {/* AI & Payments */}
+                        <SectionHeading>AI & Payments</SectionHeading>
+
+                        <Field label="Default Claude Model" error={errors.claude_default_model} description="Used for AI features unless overridden per feature">
+                            <select
+                                value={data.claude_default_model}
+                                onChange={e => setData('claude_default_model', e.target.value)}
+                                style={{ width: '100%', padding: '8px 12px', borderRadius: '6px', border: '1px solid #E2E8F0', fontSize: '14px' }}
+                            >
+                                <option value="claude-sonnet-4-20250514">Claude Sonnet 4 (Recommended)</option>
+                                <option value="claude-haiku-4-5-20251001">Claude Haiku 4.5 (Faster, cheaper)</option>
+                                <option value="claude-opus-4-20250515">Claude Opus 4 (Most capable)</option>
+                            </select>
+                        </Field>
+
+                        <Field label="Razorpay Environment" error={errors.razorpay_environment} description="Use 'test' for development, switch to 'live' for production payments">
+                            <select
+                                value={data.razorpay_environment}
+                                onChange={e => setData('razorpay_environment', e.target.value)}
+                                style={{ width: '100%', padding: '8px 12px', borderRadius: '6px', border: '1px solid #E2E8F0', fontSize: '14px' }}
+                            >
+                                <option value="test">Test Mode</option>
+                                <option value="live">Live Mode</option>
+                            </select>
+                        </Field>
+
+                        <Box pt={4} borderTopWidth="1px" borderColor="gray.200">
+                            <Button type="submit" colorScheme="blue" loading={processing}>
+                                Save All Settings
+                            </Button>
+                        </Box>
                     </VStack>
                 </form>
             </Box>

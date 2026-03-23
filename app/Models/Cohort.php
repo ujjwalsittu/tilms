@@ -6,6 +6,7 @@ use App\Enums\CohortStatus;
 use App\Enums\CohortType;
 use App\Traits\Auditable;
 use App\Traits\HasUuid;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -15,7 +16,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Cohort extends Model
 {
-    use Auditable, HasUuid, SoftDeletes;
+    use Auditable, HasFactory, HasUuid, SoftDeletes;
 
     protected $fillable = [
         'instructor_id',
