@@ -34,7 +34,7 @@ class RevenueReportService
         }
 
         return $query->select(
-            DB::raw("strftime('%m', paid_at) as month"),
+            DB::raw("MONTH(paid_at) as month"),
             DB::raw('SUM(amount) as revenue'),
             DB::raw('COUNT(*) as count')
         )->groupBy('month')->orderBy('month')->get()->toArray();

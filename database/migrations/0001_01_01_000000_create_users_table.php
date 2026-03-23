@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->char('uuid', 36)->unique()->after('id');
+            $table->char('uuid', 36)->unique();
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->enum('role', ['admin', 'instructor', 'student'])->default('student')->index()->after('email_verified_at');
+            $table->enum('role', ['admin', 'instructor', 'student'])->default('student')->index();
             $table->string('password');
             $table->rememberToken();
             $table->string('phone', 20)->nullable();
@@ -50,7 +50,7 @@ return new class extends Migration
             $table->foreignId('user_id')->nullable()->index();
             $table->string('ip_address', 45)->nullable();
             $table->text('user_agent')->nullable();
-            $table->string('device_name', 255)->nullable()->after('user_agent');
+            $table->string('device_name', 255)->nullable();
             $table->longText('payload');
             $table->integer('last_activity')->index();
         });
