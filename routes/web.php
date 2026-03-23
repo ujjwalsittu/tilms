@@ -168,9 +168,25 @@ Route::middleware(['auth', 'verified', 'role:student'])
         // Progress Reports
         Route::get('progress-reports', [Student\ProgressReportController::class, 'index'])->name('progress-reports.index');
         Route::get('progress-reports/{report}', [Student\ProgressReportController::class, 'show'])->name('progress-reports.show');
+
+        // Payments
+        Route::get('checkout/{cohort}', [Student\PaymentController::class, 'checkout'])->name('checkout');
+        Route::post('checkout/{cohort}/create-order', [Student\PaymentController::class, 'createOrder'])->name('checkout.create-order');
+        Route::post('checkout/verify', [Student\PaymentController::class, 'verify'])->name('checkout.verify');
+
+        // Billing
+        Route::get('billing', [Student\BillingController::class, 'index'])->name('billing.index');
+        Route::get('billing/invoices/{invoice}', [Student\BillingController::class, 'downloadInvoice'])->name('billing.invoice');
+
+        // Referrals
+        Route::get('referrals', [Student\ReferralController::class, 'index'])->name('referrals.index');
     });
 
+// Webhook routes (no auth, no CSRF)
+Route::post('/webhooks/razorpay', [App\Http\Controllers\WebhookController::class, 'razorpay'])->name('webhooks.razorpay');
+
 // Public pages (no auth)
+Route::get('/ref/{code}', [App\Http\Controllers\Public\AffiliateRedirectController::class, 'redirect'])->name('affiliate.redirect');
 Route::get('/cohort/{slug}', [App\Http\Controllers\Public\CohortLandingController::class, 'show'])->name('cohort.landing');
 
 Route::get('/verify/{uuid}', function (string $uuid) {

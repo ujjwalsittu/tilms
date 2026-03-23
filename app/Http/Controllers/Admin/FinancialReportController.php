@@ -4,55 +4,37 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Payment;
+use App\Services\RevenueReportService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class FinancialReportController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request, RevenueReportService $revenueReport)
     {
         $year = $request->input('year', now()->year);
         $month = $request->input('month');
-        $instructorId = $request->input('instructor_id');
+        $instructorId = $request->input('instructor_id') ? (int) $request->input('instructor_id') : null;
 
-        $query = Payment::where('status', 'captured');
+        $overview = $revenueReport->getOverview($instructorId);
+        $monthlyBreakdown = $revenueReport->getMonthlyBreakdown($instructorId, (int) $year);
+        $forecast = $revenueReport->getForecast($instructorId);
 
-        if ($month) {
-            $query->whereMonth('paid_at', $month)->whereYear('paid_at', $year);
-        } else {
-            $query->whereYear('paid_at', $year);
-        }
-
-        if ($instructorId) {
-            $query->whereHas('cohort', function ($q) use ($instructorId) {
-                $q->where('instructor_id', $instructorId);
-            });
-        }
-
-        $totalRevenue = $query->sum('amount');
         $totalRefunded = Payment::where('status', 'refunded')
             ->when($month, fn ($q) => $q->whereMonth('paid_at', $month)->whereYear('paid_at', $year))
             ->when(! $month, fn ($q) => $q->whereYear('paid_at', $year))
             ->when($instructorId, fn ($q) => $q->whereHas('cohort', fn ($q2) => $q2->where('instructor_id', $instructorId)))
             ->sum('amount');
 
-        $monthlyBreakdown = Payment::where('status', 'captured')
-            ->whereYear('paid_at', $year)
-            ->when($instructorId, fn ($q) => $q->whereHas('cohort', fn ($q2) => $q2->where('instructor_id', $instructorId)))
-            ->select(
-                DB::raw('MONTH(paid_at) as month'),
-                DB::raw('SUM(amount) as total'),
-                DB::raw('COUNT(*) as count')
-            )
-            ->groupBy(DB::raw('MONTH(paid_at)'))
-            ->orderBy(DB::raw('MONTH(paid_at)'))
-            ->get();
-
         return Inertia::render('Admin/Finance/Index', [
-            'totalRevenue' => $totalRevenue,
+            'totalRevenue' => $overview['total_revenue'],
+            'monthlyRevenue' => $overview['monthly_revenue'],
+            'totalPayments' => $overview['total_payments'],
+            'avgPayment' => $overview['avg_payment'],
             'totalRefunded' => $totalRefunded,
             'monthlyBreakdown' => $monthlyBreakdown,
+            'forecast' => $forecast,
             'filters' => $request->only(['month', 'year', 'instructor_id']),
         ]);
     }
