@@ -1,8 +1,8 @@
-import { Head, router } from '@inertiajs/react';
+import { Head, router, Link } from '@inertiajs/react';
 import AdminLayout from '@/Layouts/AdminLayout';
 import FlashMessage from '@/Components/Shared/FlashMessage';
 import { Box, Button, Input, Text, Flex, Badge, HStack, VStack } from '@chakra-ui/react';
-import { FiKey, FiSave } from 'react-icons/fi';
+import { FiKey, FiSave, FiSettings } from 'react-icons/fi';
 import { useState } from 'react';
 
 const SERVICE_LABELS = {
@@ -87,11 +87,25 @@ export default function ApiKeys({ apiKeys = [] }) {
     return (
         <AdminLayout title="API Keys">
             <Head title="API Keys" />
+            {/* Tab navigation */}
+            <HStack gap={2} mb={6}>
+                <Link href={route('admin.settings.platform')}>
+                    <Box bg="white" px={4} py={2} borderRadius="md" fontSize="sm" borderWidth="1px" _hover={{ bg: 'gray.50' }} cursor="pointer">
+                        <HStack gap={2}><FiSettings size={14} /><Text>Platform Settings</Text></HStack>
+                    </Box>
+                </Link>
+                <Box bg="blue.500" color="white" px={4} py={2} borderRadius="md" fontSize="sm" fontWeight="medium">
+                    <HStack gap={2}><FiKey size={14} /><Text>API Keys</Text></HStack>
+                </Box>
+            </HStack>
+
             <FlashMessage />
 
             <Box maxW="3xl">
                 <Text color="gray.500" fontSize="sm" mb={6}>
                     Configure API keys for third-party services. Keys are stored encrypted in the database.
+                    The <strong>Resend API key</strong> is used for sending all platform emails.
+                    Set your <strong>mail from address and name</strong> in Platform Settings.
                 </Text>
 
                 <VStack gap={4} align="stretch">

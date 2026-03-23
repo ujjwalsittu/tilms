@@ -1,7 +1,8 @@
-import { Head, useForm } from '@inertiajs/react';
+import { Head, useForm, Link } from '@inertiajs/react';
 import AdminLayout from '@/Layouts/AdminLayout';
 import FlashMessage from '@/Components/Shared/FlashMessage';
-import { Box, Button, Input, VStack, Text, Flex, Heading } from '@chakra-ui/react';
+import { Box, Button, Input, VStack, HStack, Text, Flex, Heading } from '@chakra-ui/react';
+import { FiSettings, FiKey } from 'react-icons/fi';
 
 function SectionHeading({ children }) {
     return (
@@ -44,6 +45,18 @@ export default function Platform({ settings = {} }) {
     return (
         <AdminLayout title="Platform Settings">
             <Head title="Platform Settings" />
+            {/* Tab navigation */}
+            <HStack gap={2} mb={6}>
+                <Box bg="blue.500" color="white" px={4} py={2} borderRadius="md" fontSize="sm" fontWeight="medium">
+                    <HStack gap={2}><FiSettings size={14} /><Text>Platform Settings</Text></HStack>
+                </Box>
+                <Link href={route('admin.settings.api-keys')}>
+                    <Box bg="white" px={4} py={2} borderRadius="md" fontSize="sm" borderWidth="1px" _hover={{ bg: 'gray.50' }} cursor="pointer">
+                        <HStack gap={2}><FiKey size={14} /><Text>API Keys</Text></HStack>
+                    </Box>
+                </Link>
+            </HStack>
+
             <FlashMessage />
 
             <Box bg="white" p={6} borderRadius="lg" boxShadow="sm" borderWidth="1px" maxW="2xl">
