@@ -27,7 +27,7 @@ class FinancialReportController extends Controller
             ->when($instructorId, fn ($q) => $q->whereHas('cohort', fn ($q2) => $q2->where('instructor_id', $instructorId)))
             ->sum('amount');
 
-        return Inertia::render('Admin/Finance/Index', [
+        return Inertia::render('Admin/Finance/Overview', [
             'totalRevenue' => $overview['total_revenue'],
             'monthlyRevenue' => $overview['monthly_revenue'],
             'totalPayments' => $overview['total_payments'],

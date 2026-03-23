@@ -66,7 +66,7 @@ class InstructorController extends Controller
 
     public function show(User $user)
     {
-        if ($user->role->value !== 'instructor') {
+        if (($user->role?->value ?? $user->role) !== 'instructor') {
             abort(404);
         }
 
@@ -92,7 +92,7 @@ class InstructorController extends Controller
 
     public function edit(User $user)
     {
-        if ($user->role->value !== 'instructor') {
+        if (($user->role?->value ?? $user->role) !== 'instructor') {
             abort(404);
         }
 
@@ -105,7 +105,7 @@ class InstructorController extends Controller
 
     public function update(Request $request, User $user)
     {
-        if ($user->role->value !== 'instructor') {
+        if (($user->role?->value ?? $user->role) !== 'instructor') {
             abort(404);
         }
 
@@ -137,7 +137,7 @@ class InstructorController extends Controller
 
     public function destroy(User $user)
     {
-        if ($user->role->value !== 'instructor') {
+        if (($user->role?->value ?? $user->role) !== 'instructor') {
             abort(404);
         }
 
@@ -149,7 +149,7 @@ class InstructorController extends Controller
 
     public function toggleActive(User $user)
     {
-        if ($user->role->value !== 'instructor') {
+        if (($user->role?->value ?? $user->role) !== 'instructor') {
             abort(404);
         }
 

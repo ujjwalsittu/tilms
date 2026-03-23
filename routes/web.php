@@ -38,8 +38,8 @@ Route::middleware(['auth', 'verified', 'role:admin'])
         Route::get('/dashboard', [Admin\DashboardController::class, 'index'])->name('dashboard');
 
         // Instructors
-        Route::resource('instructors', Admin\InstructorController::class);
-        Route::put('instructors/{user}/toggle-active', [Admin\InstructorController::class, 'toggleActive'])->name('instructors.toggle-active');
+        Route::resource('instructors', Admin\InstructorController::class)->parameters(['instructors' => 'user']);
+        Route::match(['put', 'patch'], 'instructors/{user}/toggle-active', [Admin\InstructorController::class, 'toggleActive'])->name('instructors.toggle-active');
 
         // Students
         Route::get('students', [Admin\StudentController::class, 'index'])->name('students.index');

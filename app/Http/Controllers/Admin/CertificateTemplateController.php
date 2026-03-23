@@ -14,7 +14,7 @@ class CertificateTemplateController extends Controller
     {
         $templates = CertificateTemplate::all();
 
-        return Inertia::render('Admin/CertificateTemplates/Index', [
+        return Inertia::render('Admin/Settings/CertificateTemplates', [
             'templates' => $templates,
         ]);
     }
@@ -53,6 +53,7 @@ class CertificateTemplateController extends Controller
             'background_image_path' => $backgroundImagePath,
             'signature_image_path' => $signatureImagePath,
             'is_default' => $validated['is_default'] ?? false,
+            'created_by' => auth()->id(),
         ]);
 
         return redirect()->route('admin.certificate-templates.index')

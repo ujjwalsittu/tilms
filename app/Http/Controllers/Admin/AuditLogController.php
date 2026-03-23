@@ -24,7 +24,7 @@ class AuditLogController extends Controller
 
         $logs = $query->latest('created_at')->paginate(50)->withQueryString();
 
-        return Inertia::render('Admin/AuditLogs/Index', [
+        return Inertia::render('Admin/AuditLog/Index', [
             'logs' => $logs,
             'filters' => $request->only(['search', 'user_id']),
         ]);

@@ -16,7 +16,7 @@ class IdVerificationQueueController extends Controller
             ->paginate(20)
             ->withQueryString();
 
-        return Inertia::render('Admin/IdVerification/Index', [
+        return Inertia::render('Admin/IdVerification/Queue', [
             'users' => $users,
         ]);
     }
