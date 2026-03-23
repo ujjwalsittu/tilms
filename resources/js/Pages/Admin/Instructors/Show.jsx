@@ -1,12 +1,12 @@
 import { Head, Link, router } from '@inertiajs/react';
 import AdminLayout from '@/Layouts/AdminLayout';
 import {
-    Box, Button, Text, Flex, SimpleGrid, Badge, HStack, VStack, Icon,
+    Box, Button, Text, Flex, SimpleGrid, Badge, HStack, VStack,
     Table,
 } from '@chakra-ui/react';
 import { FiEdit, FiUsers, FiBook, FiDollarSign, FiGlobe, FiLinkedin, FiGithub } from 'react-icons/fi';
 
-function StatCard({ label, value, icon, color }) {
+function StatCard({ label, value, icon: IconComp, color }) {
     return (
         <Box bg="white" p={5} borderRadius="lg" boxShadow="sm" borderWidth="1px" borderColor="gray.200">
             <Flex justify="space-between" align="center">
@@ -15,7 +15,7 @@ function StatCard({ label, value, icon, color }) {
                     <Text fontSize="2xl" fontWeight="bold" mt={1}>{value}</Text>
                 </Box>
                 <Flex w={10} h={10} bg={`${color}.50`} borderRadius="lg" align="center" justify="center">
-                    <Icon as={icon} boxSize={5} color={`${color}.500`} />
+                    <IconComp size={20} />
                 </Flex>
             </Flex>
         </Box>

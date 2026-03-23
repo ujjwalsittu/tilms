@@ -13,7 +13,6 @@ import {
     HStack,
     VStack,
     Progress,
-    Avatar,
 } from '@chakra-ui/react';
 import { FiMail, FiCalendar, FiAward } from 'react-icons/fi';
 
@@ -48,9 +47,9 @@ export default function StudentDetail({ cohort, student, submissions = [], enrol
                 {/* Student Info Card */}
                 <Box bg="white" p={6} borderRadius="lg" boxShadow="sm" borderWidth="1px">
                     <VStack align="start" gap={4}>
-                        <Avatar.Root size="xl">
-                            <Avatar.Fallback name={student.name} />
-                        </Avatar.Root>
+                        <Flex w={16} h={16} bg="blue.100" borderRadius="full" align="center" justify="center" flexShrink={0}>
+                            <Text fontWeight="bold" fontSize="2xl" color="blue.600">{student?.name?.[0]?.toUpperCase()}</Text>
+                        </Flex>
 
                         <Box>
                             <Text fontSize="xl" fontWeight="bold">{student.name}</Text>

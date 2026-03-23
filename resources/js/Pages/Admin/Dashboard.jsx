@@ -5,11 +5,10 @@ import {
     Box,
     Text,
     Flex,
-    Icon,
 } from '@chakra-ui/react';
 import { FiUsers, FiBook, FiDollarSign, FiCpu } from 'react-icons/fi';
 
-function StatCard({ label, value, icon, color }) {
+function StatCard({ label, value, icon: IconComp, color }) {
     return (
         <Box bg="white" p={6} borderRadius="lg" boxShadow="sm" borderWidth="1px" borderColor="gray.200">
             <Flex justify="space-between" align="center">
@@ -25,7 +24,7 @@ function StatCard({ label, value, icon, color }) {
                     align="center"
                     justify="center"
                 >
-                    <Icon as={icon} boxSize={6} color={`${color}.500`} />
+                    <IconComp size={24} />
                 </Flex>
             </Flex>
         </Box>

@@ -8,12 +8,11 @@ import {
     SimpleGrid,
     Table,
     Badge,
-    Icon,
     HStack,
 } from '@chakra-ui/react';
 import { FiDollarSign, FiTrendingUp, FiUsers } from 'react-icons/fi';
 
-function StatCard({ label, value, icon, color, subtext }) {
+function StatCard({ label, value, icon: IconComp, color, subtext }) {
     return (
         <Box bg="white" p={6} borderRadius="lg" boxShadow="sm" borderWidth="1px">
             <Flex justify="space-between" align="center">
@@ -23,7 +22,7 @@ function StatCard({ label, value, icon, color, subtext }) {
                     {subtext && <Text fontSize="xs" color="gray.400" mt={1}>{subtext}</Text>}
                 </Box>
                 <Flex w={12} h={12} bg={`${color}.50`} borderRadius="lg" align="center" justify="center">
-                    <Icon as={icon} boxSize={6} color={`${color}.500`} />
+                    <IconComp size={24} />
                 </Flex>
             </Flex>
         </Box>

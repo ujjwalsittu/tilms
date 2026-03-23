@@ -10,7 +10,6 @@ import {
     SimpleGrid,
     VStack,
     HStack,
-    Icon,
 } from '@chakra-ui/react';
 import {
     FiUsers,
@@ -23,20 +22,20 @@ import {
     FiArrowRight,
 } from 'react-icons/fi';
 
-function FeaturePill({ icon, text }) {
+function FeaturePill({ icon: IconComp, text }) {
     return (
         <HStack gap={2} bg="blue.50" px={3} py={1.5} borderRadius="full">
-            <Icon as={icon} boxSize={4} color="blue.500" />
+            <IconComp size={16} />
             <Text fontSize="sm" color="blue.700" fontWeight="medium">{text}</Text>
         </HStack>
     );
 }
 
-function StatBadge({ value, label, icon }) {
+function StatBadge({ value, label, icon: IconComp }) {
     return (
         <Box textAlign="center" px={6}>
             <HStack justify="center" gap={1} mb={1}>
-                <Icon as={icon} boxSize={5} color="blue.500" />
+                <IconComp size={20} />
                 <Text fontSize="2xl" fontWeight="bold">{value}</Text>
             </HStack>
             <Text fontSize="sm" color="gray.500">{label}</Text>
@@ -175,7 +174,7 @@ export default function CohortLanding({ cohort, instructor, taskCount = 0, enrol
                             <VStack gap={3} align="start">
                                 {cohort.starts_at && (
                                     <HStack gap={2}>
-                                        <Icon as={FiClock} boxSize={4} opacity={0.8} />
+                                        <FiClock size={16} style={{opacity: 0.8}} />
                                         <Text fontSize="sm" opacity={0.9}>
                                             Starts {new Date(cohort.starts_at).toLocaleDateString(undefined, {
                                                 weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
@@ -185,7 +184,7 @@ export default function CohortLanding({ cohort, instructor, taskCount = 0, enrol
                                 )}
                                 {cohort.completion_threshold && (
                                     <HStack gap={2}>
-                                        <Icon as={FiAward} boxSize={4} opacity={0.8} />
+                                        <FiAward size={16} style={{opacity: 0.8}} />
                                         <Text fontSize="sm" opacity={0.9}>
                                             Certificate at {cohort.completion_threshold}% completion
                                         </Text>
@@ -193,13 +192,13 @@ export default function CohortLanding({ cohort, instructor, taskCount = 0, enrol
                                 )}
                                 {cohort.has_leaderboard && (
                                     <HStack gap={2}>
-                                        <Icon as={FiStar} boxSize={4} opacity={0.8} />
+                                        <FiStar size={16} style={{opacity: 0.8}} />
                                         <Text fontSize="sm" opacity={0.9}>Leaderboard enabled</Text>
                                     </HStack>
                                 )}
                                 {cohort.max_students && (
                                     <HStack gap={2}>
-                                        <Icon as={FiShield} boxSize={4} opacity={0.8} />
+                                        <FiShield size={16} style={{opacity: 0.8}} />
                                         <Text fontSize="sm" opacity={0.9}>
                                             Limited to {cohort.max_students} students
                                         </Text>
@@ -223,7 +222,7 @@ export default function CohortLanding({ cohort, instructor, taskCount = 0, enrol
                                 <Box bg="white" borderRadius="lg" borderWidth="1px" overflow="hidden">
                                     <Box p={4} bg="gray.50" borderBottomWidth="1px">
                                         <HStack gap={2}>
-                                            <Icon as={FiBook} color="blue.500" />
+                                            <FiBook size={16} />
                                             <Text fontWeight="semibold">{taskCount} Tasks</Text>
                                         </HStack>
                                     </Box>
@@ -238,7 +237,7 @@ export default function CohortLanding({ cohort, instructor, taskCount = 0, enrol
                                                     align="center"
                                                     gap={3}
                                                 >
-                                                    <Icon as={FiCheckCircle} color="green.500" boxSize={4} flexShrink={0} />
+                                                    <FiCheckCircle size={16} style={{flexShrink: 0}} />
                                                     <Text fontSize="sm">{item}</Text>
                                                 </Flex>
                                             ))}
@@ -281,14 +280,14 @@ export default function CohortLanding({ cohort, instructor, taskCount = 0, enrol
                                 </Text>
                                 <VStack align="start" gap={3}>
                                     <HStack gap={3}>
-                                        <Avatar.Root size="lg">
-                                            <Avatar.Fallback name={instructor.name} />
-                                        </Avatar.Root>
+                                        <Flex w={12} h={12} bg="blue.100" borderRadius="full" align="center" justify="center" flexShrink={0}>
+                                            <Text fontWeight="bold" fontSize="lg" color="blue.600">{instructor.name?.[0]?.toUpperCase()}</Text>
+                                        </Flex>
                                         <Box>
                                             <HStack gap={1}>
                                                 <Text fontWeight="bold">{instructor.name}</Text>
                                                 {instructor.is_verified && (
-                                                    <Icon as={FiShield} boxSize={4} color="blue.500" title="Verified" />
+                                                    <FiShield size={16} title="Verified" />
                                                 )}
                                             </HStack>
                                             {instructor.specialization && (
@@ -323,7 +322,7 @@ export default function CohortLanding({ cohort, instructor, taskCount = 0, enrol
                                     cohort.has_free_audit ? 'Free audit available' : null,
                                 ].filter(Boolean).map((item, i) => (
                                     <HStack key={i} gap={2}>
-                                        <Icon as={FiCheckCircle} boxSize={4} color="green.500" flexShrink={0} />
+                                        <FiCheckCircle size={16} style={{flexShrink: 0}} />
                                         <Text fontSize="sm">{item}</Text>
                                     </HStack>
                                 ))}

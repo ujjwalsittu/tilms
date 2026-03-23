@@ -11,7 +11,6 @@ import {
     Progress,
     HStack,
     VStack,
-    Icon,
 } from '@chakra-ui/react';
 import {
     FiLock,
@@ -214,7 +213,7 @@ export default function Show({ cohort, enrollment, tasks = [], announcements = [
                                     >
                                         <HStack gap={2} mb={1}>
                                             {a.is_pinned && (
-                                                <Icon as={FiMapPin} boxSize={3} color="orange.500" />
+                                                <FiMapPin size={12} style={{color: 'var(--chakra-colors-orange-500)'}} />
                                             )}
                                             <Text fontWeight="medium" fontSize="sm" noOfLines={1}>
                                                 {a.title}

@@ -7,7 +7,6 @@ import {
     Box,
     Text,
     Flex,
-    Icon,
     Badge,
     Button,
     VStack,
@@ -16,7 +15,7 @@ import {
 } from '@chakra-ui/react';
 import { FiBook, FiCheckCircle, FiAward, FiZap, FiArrowRight, FiClock } from 'react-icons/fi';
 
-function StatCard({ label, value, icon, color }) {
+function StatCard({ label, value, icon: IconComp, color }) {
     return (
         <Box bg="white" p={6} borderRadius="lg" boxShadow="sm" borderWidth="1px" borderColor="gray.200">
             <Flex justify="space-between" align="center">
@@ -32,7 +31,7 @@ function StatCard({ label, value, icon, color }) {
                     align="center"
                     justify="center"
                 >
-                    <Icon as={icon} boxSize={6} color={`${color}.500`} />
+                    <IconComp size={24} />
                 </Flex>
             </Flex>
         </Box>
@@ -79,7 +78,7 @@ export default function Dashboard({ stats = {}, activeCohorts = [], recentTasks 
                         <Text fontWeight="semibold" fontSize="lg">My Cohorts</Text>
                         <Link href={route('student.cohorts.index')}>
                             <Button size="sm" variant="ghost" colorScheme="blue">
-                                View all <Icon as={FiArrowRight} ml={1} />
+                                View all <FiArrowRight size={16} style={{marginLeft: '4px'}} />
                             </Button>
                         </Link>
                     </Flex>

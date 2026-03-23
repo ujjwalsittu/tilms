@@ -5,7 +5,6 @@ import {
     VStack,
     HStack,
     Text,
-    Icon,
 } from '@chakra-ui/react';
 import {
     FiHome,
@@ -51,20 +50,23 @@ export default function InstructorLayout({ children, title }) {
                 </Box>
 
                 <VStack gap={1} p={2} align="stretch">
-                    {navItems.map((item) => (
-                        <Link key={item.label} href={item.href}>
-                            <HStack
-                                px={3}
-                                py={2}
-                                borderRadius="md"
-                                _hover={{ bg: 'blue.700' }}
-                                transition="background 0.2s"
-                            >
-                                <Icon as={item.icon} boxSize={4} />
-                                <Text fontSize="sm">{item.label}</Text>
-                            </HStack>
-                        </Link>
-                    ))}
+                    {navItems.map((item) => {
+                        const IconComp = item.icon;
+                        return (
+                            <Link key={item.label} href={item.href}>
+                                <HStack
+                                    px={3}
+                                    py={2}
+                                    borderRadius="md"
+                                    _hover={{ bg: 'blue.700' }}
+                                    transition="background 0.2s"
+                                >
+                                    <IconComp size={16} />
+                                    <Text fontSize="sm">{item.label}</Text>
+                                </HStack>
+                            </Link>
+                        );
+                    })}
                 </VStack>
             </Box>
 
