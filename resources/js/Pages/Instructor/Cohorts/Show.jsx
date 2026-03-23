@@ -13,7 +13,6 @@ import {
     Table,
     HStack,
     VStack,
-    Tabs,
 } from '@chakra-ui/react';
 import {
     FiEdit2,
@@ -44,6 +43,7 @@ function StatCard({ label, value, icon: IconComp, color }) {
 }
 
 export default function Show({ cohort, tasks = [], enrollmentStats = {}, announcements = [] }) {
+    const [activeTab, setActiveTab] = useState('tasks');
     const handleClone = () => {
         if (confirm('Clone this cohort?')) {
             router.post(route('instructor.cohorts.clone', cohort.id));
@@ -137,16 +137,33 @@ export default function Show({ cohort, tasks = [], enrollmentStats = {}, announc
                 />
             </SimpleGrid>
 
-            {/* Tabs */}
-            <Tabs.Root defaultValue="tasks">
-                <Tabs.List mb={4}>
-                    <Tabs.Trigger value="tasks">Tasks ({tasks.length})</Tabs.Trigger>
-                    <Tabs.Trigger value="students">Students ({enrollmentStats.total ?? 0})</Tabs.Trigger>
-                    <Tabs.Trigger value="announcements">Announcements ({announcements.length})</Tabs.Trigger>
-                </Tabs.List>
+            {/* Tab Navigation */}
+            <HStack gap={0} mb={4} borderBottomWidth="2px" borderColor="gray.200">
+                {[
+                    { key: 'tasks', label: `Tasks (${tasks.length})` },
+                    { key: 'students', label: `Students (${enrollmentStats.total ?? 0})` },
+                    { key: 'announcements', label: `Announcements (${announcements.length})` },
+                ].map(tab => (
+                    <Box
+                        key={tab.key}
+                        px={4} py={2}
+                        cursor="pointer"
+                        fontWeight={activeTab === tab.key ? 'semibold' : 'normal'}
+                        color={activeTab === tab.key ? 'blue.600' : 'gray.500'}
+                        borderBottomWidth="2px"
+                        borderColor={activeTab === tab.key ? 'blue.600' : 'transparent'}
+                        mb="-2px"
+                        fontSize="sm"
+                        onClick={() => setActiveTab(tab.key)}
+                        _hover={{ color: 'blue.500' }}
+                    >
+                        {tab.label}
+                    </Box>
+                ))}
+            </HStack>
 
-                {/* Tasks Tab */}
-                <Tabs.Content value="tasks">
+            {/* Tasks Tab */}
+            {activeTab === 'tasks' && (
                     <Box bg="white" borderRadius="lg" boxShadow="sm" borderWidth="1px" overflow="hidden">
                         <Flex justify="space-between" align="center" p={4} borderBottomWidth="1px">
                             <Text fontWeight="semibold">Tasks</Text>
@@ -200,10 +217,10 @@ export default function Show({ cohort, tasks = [], enrollmentStats = {}, announc
                             </Table.Root>
                         )}
                     </Box>
-                </Tabs.Content>
+                        )}
 
-                {/* Students Tab */}
-                <Tabs.Content value="students">
+                        {/* Students Tab */}
+                        {activeTab === 'students' && (
                     <Box bg="white" borderRadius="lg" boxShadow="sm" borderWidth="1px" overflow="hidden">
                         <Flex justify="space-between" align="center" p={4} borderBottomWidth="1px">
                             <Text fontWeight="semibold">Enrolled Students</Text>
@@ -240,10 +257,10 @@ export default function Show({ cohort, tasks = [], enrollmentStats = {}, announc
                             </SimpleGrid>
                         </Box>
                     </Box>
-                </Tabs.Content>
+                        )}
 
-                {/* Announcements Tab */}
-                <Tabs.Content value="announcements">
+                        {/* Announcements Tab */}
+                        {activeTab === 'announcements' && (
                     <Box bg="white" borderRadius="lg" boxShadow="sm" borderWidth="1px" overflow="hidden">
                         <Flex justify="space-between" align="center" p={4} borderBottomWidth="1px">
                             <Text fontWeight="semibold">Announcements</Text>
@@ -272,8 +289,7 @@ export default function Show({ cohort, tasks = [], enrollmentStats = {}, announc
                             </VStack>
                         )}
                     </Box>
-                </Tabs.Content>
-            </Tabs.Root>
+            )}
         </InstructorLayout>
     );
 }
