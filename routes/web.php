@@ -101,6 +101,7 @@ Route::middleware(['auth', 'verified', 'role:instructor'])
 
         // Task Bank
         Route::resource('tasks', Instructor\TaskBankController::class);
+        Route::post('tasks/ai-generate', [Instructor\TaskBankController::class, 'aiGenerate'])->name('tasks.ai-generate');
 
         // Submissions
         Route::get('submissions', [Instructor\SubmissionReviewController::class, 'index'])->name('submissions.index');
@@ -152,6 +153,21 @@ Route::middleware(['auth', 'verified', 'role:student'])
         // Task Discussions
         Route::post('tasks/{cohortTask}/discussions', [Student\TaskDiscussionController::class, 'store'])->name('discussions.store');
         Route::delete('discussions/{discussion}', [Student\TaskDiscussionController::class, 'destroy'])->name('discussions.destroy');
+
+        // AI Doubt Assistant
+        Route::get('ai/doubt', [Student\AiDoubtAssistantController::class, 'index'])->name('ai.doubt.index');
+        Route::get('ai/doubt/{conversation}', [Student\AiDoubtAssistantController::class, 'show'])->name('ai.doubt.show');
+        Route::post('ai/doubt', [Student\AiDoubtAssistantController::class, 'ask'])->name('ai.doubt.ask');
+
+        // AI Interview Simulator
+        Route::get('ai/interview', [Student\AiInterviewSimController::class, 'index'])->name('ai.interview.index');
+        Route::post('ai/interview/start', [Student\AiInterviewSimController::class, 'start'])->name('ai.interview.start');
+        Route::get('ai/interview/{conversation}', [Student\AiInterviewSimController::class, 'show'])->name('ai.interview.show');
+        Route::post('ai/interview/{conversation}/respond', [Student\AiInterviewSimController::class, 'respond'])->name('ai.interview.respond');
+
+        // Progress Reports
+        Route::get('progress-reports', [Student\ProgressReportController::class, 'index'])->name('progress-reports.index');
+        Route::get('progress-reports/{report}', [Student\ProgressReportController::class, 'show'])->name('progress-reports.show');
     });
 
 // Public pages (no auth)

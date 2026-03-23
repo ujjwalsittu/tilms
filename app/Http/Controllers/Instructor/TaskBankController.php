@@ -108,6 +108,22 @@ class TaskBankController extends Controller
             ->with('success', 'Task deleted.');
     }
 
+    public function aiGenerate(Request $request)
+    {
+        $validated = $request->validate([
+            'task_id' => 'required|exists:tasks,id',
+            'domain' => 'required|string|max:100',
+            'additional_context' => 'nullable|string|max:2000',
+        ]);
+
+        $task = Task::findOrFail($validated['task_id']);
+        abort_if($task->creator_id !== auth()->id(), 403);
+
+        \App\Jobs\Ai\GenerateTask::dispatch($task, $validated['domain'], $validated['additional_context']);
+
+        return back()->with('success', 'AI task generation started. Content will be updated shortly.');
+    }
+
     protected function authorizeOwnership(Task $task): void
     {
         if ($task->creator_id !== auth()->id()) {
