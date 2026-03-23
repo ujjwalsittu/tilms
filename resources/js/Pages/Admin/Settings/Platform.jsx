@@ -120,7 +120,7 @@ export default function Platform({ settings = {} }) {
                         </Field>
 
                         <Box pt={4} borderTopWidth="1px" borderColor="gray.200">
-                            <Button type="submit" colorScheme="blue" loading={processing}>
+                            <Button type="submit" colorPalette="blue" loading={processing}>
                                 Save All Settings
                             </Button>
                         </Box>

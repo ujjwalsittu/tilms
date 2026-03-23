@@ -71,12 +71,12 @@ export default function InvoiceView({ invoice }) {
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-                    <Button variant="outline" colorScheme="purple" size="sm" leftIcon={<FiDownload />}>
-                        Download PDF
+                    <Button variant="outline" colorPalette="purple" size="sm">
+                        <FiDownload size={13} /> Download PDF
                     </Button>
                 </a>
-                <Button colorScheme="purple" size="sm" onClick={handlePrint} leftIcon={<FiPrinter />}>
-                    Print
+                <Button colorPalette="purple" size="sm" onClick={handlePrint}>
+                    <FiPrinter size={13} /> Print
                 </Button>
             </Flex>
 

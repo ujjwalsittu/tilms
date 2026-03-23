@@ -35,11 +35,10 @@ export default function View({ certificate = {} }) {
             {/* Print action bar — hidden when printing */}
             <Flex justify="flex-end" mb={4} className="no-print">
                 <Button
-                    colorScheme="purple"
-                    leftIcon={<FiPrinter />}
+                    colorPalette="purple"
                     onClick={() => window.print()}
                 >
-                    Print Certificate
+                    <FiPrinter size={14} /> Print Certificate
                 </Button>
             </Flex>
 

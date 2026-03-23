@@ -112,8 +112,8 @@ export default function Review({ submission }) {
                             <Box>
                                 <Text fontSize="sm" color="gray.500" mb={2}>GitHub Repository:</Text>
                                 <a href={submission.github_url} target="_blank" rel="noopener noreferrer">
-                                    <Button size="sm" colorScheme="gray" leftIcon={<FiExternalLink />}>
-                                        Open Repository
+                                    <Button size="sm" colorPalette="gray">
+                                        <FiExternalLink size={13} /> Open Repository
                                     </Button>
                                 </a>
                             </Box>
@@ -142,7 +142,7 @@ export default function Review({ submission }) {
                             <Flex align="center" gap={2} mb={4}>
                                 <FiCpu />
                                 <Text fontWeight="semibold">AI Evaluation Report</Text>
-                                <Badge colorScheme="cyan" ml="auto">AI</Badge>
+                                <Badge colorPalette="cyan" ml="auto">AI</Badge>
                             </Flex>
 
                             <SimpleGrid columns={2} gap={3} mb={4}>
@@ -299,8 +299,8 @@ export default function Review({ submission }) {
                     </Link>
                     <Button
                         type="submit"
-                        colorScheme="blue"
-                        isLoading={processing}
+                        colorPalette="blue"
+                        loading={processing}
                         loadingText="Submitting grade..."
                     >
                         Submit Grade

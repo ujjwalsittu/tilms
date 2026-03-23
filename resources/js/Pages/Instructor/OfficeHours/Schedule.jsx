@@ -6,7 +6,6 @@ import {
     Button,
     Flex,
     Input,
-    Select,
     Text,
     SimpleGrid,
     VStack,
@@ -14,6 +13,8 @@ import {
     Badge,
 } from '@chakra-ui/react';
 import { FiPlus, FiEdit2, FiTrash2, FiCalendar, FiUsers, FiLink } from 'react-icons/fi';
+
+const sel = { width: '100%', padding: '8px 12px', borderRadius: '6px', border: '1px solid #E2E8F0', fontSize: '14px', background: 'white' };
 
 export default function Schedule({ slots = [], cohorts = [] }) {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -58,79 +59,47 @@ export default function Schedule({ slots = [], cohorts = [] }) {
                                 <SimpleGrid columns={2} gap={4}>
                                     <Box>
                                         <Text fontSize="sm" fontWeight="medium" mb={1}>Starts At</Text>
-                                        <Input
-                                            type="datetime-local"
-                                            value={data.starts_at}
-                                            onChange={(e) => setData('starts_at', e.target.value)}
-                                        />
+                                        <Input type="datetime-local" value={data.starts_at} onChange={(e) => setData('starts_at', e.target.value)} />
                                         {errors.starts_at && <Text fontSize="sm" color="red.500" mt={1}>{errors.starts_at}</Text>}
                                     </Box>
-
                                     <Box>
                                         <Text fontSize="sm" fontWeight="medium" mb={1}>Ends At</Text>
-                                        <Input
-                                            type="datetime-local"
-                                            value={data.ends_at}
-                                            onChange={(e) => setData('ends_at', e.target.value)}
-                                        />
+                                        <Input type="datetime-local" value={data.ends_at} onChange={(e) => setData('ends_at', e.target.value)} />
                                         {errors.ends_at && <Text fontSize="sm" color="red.500" mt={1}>{errors.ends_at}</Text>}
                                     </Box>
                                 </SimpleGrid>
 
                                 <Box>
                                     <Text fontSize="sm" fontWeight="medium" mb={1}>Max Attendees</Text>
-                                    <Input
-                                        type="number"
-                                        value={data.max_attendees}
-                                        onChange={(e) => setData('max_attendees', Number(e.target.value))}
-                                        min="1"
-                                    />
+                                    <Input type="number" value={data.max_attendees} onChange={(e) => setData('max_attendees', Number(e.target.value))} min="1" />
                                     {errors.max_attendees && <Text fontSize="sm" color="red.500" mt={1}>{errors.max_attendees}</Text>}
                                 </Box>
 
                                 <Box>
                                     <Text fontSize="sm" fontWeight="medium" mb={1}>Meeting URL</Text>
-                                    <Input
-                                        type="url"
-                                        value={data.meeting_url}
-                                        onChange={(e) => setData('meeting_url', e.target.value)}
-                                        placeholder="https://meet.google.com/..."
-                                    />
+                                    <Input type="url" value={data.meeting_url} onChange={(e) => setData('meeting_url', e.target.value)} placeholder="https://meet.google.com/..." />
                                     {errors.meeting_url && <Text fontSize="sm" color="red.500" mt={1}>{errors.meeting_url}</Text>}
                                 </Box>
 
                                 <Box>
                                     <Text fontSize="sm" fontWeight="medium" mb={1}>Cohort (Optional)</Text>
-                                    <Select
-                                        value={data.cohort_id}
-                                        onChange={(e) => setData('cohort_id', e.target.value)}
-                                    >
+                                    <select value={data.cohort_id} onChange={(e) => setData('cohort_id', e.target.value)} style={sel}>
                                         <option value="">All cohorts / General</option>
                                         {cohorts.map((c) => (
                                             <option key={c.id} value={c.id}>{c.title}</option>
                                         ))}
-                                    </Select>
+                                    </select>
                                     <Text fontSize="sm" color="gray.500" mt={1}>Limit to a specific cohort or leave open for all</Text>
                                     {errors.cohort_id && <Text fontSize="sm" color="red.500" mt={1}>{errors.cohort_id}</Text>}
                                 </Box>
 
                                 <label style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer', fontSize: '0.875rem' }}>
-                                    <input
-                                        type="checkbox"
-                                        checked={data.is_recurring}
-                                        onChange={(e) => setData('is_recurring', e.target.checked)}
-                                    />
+                                    <input type="checkbox" checked={data.is_recurring} onChange={(e) => setData('is_recurring', e.target.checked)} />
                                     Recurring (weekly)
                                 </label>
 
-                                <Button
-                                    type="submit"
-                                    colorScheme="blue"
-                                    leftIcon={<FiPlus />}
-                                    isLoading={processing}
-                                    loadingText="Scheduling..."
-                                >
-                                    Schedule Slot
+                                <Button type="submit" colorPalette="blue" loading={processing} loadingText="Scheduling...">
+                                    <FiPlus size={14} /> Schedule Slot
                                 </Button>
                             </VStack>
                         </Box>
@@ -162,7 +131,7 @@ export default function Schedule({ slots = [], cohorts = [] }) {
                                                         })}
                                                     </Text>
                                                     {slot.is_recurring && (
-                                                        <Badge colorScheme="purple" size="sm">Recurring</Badge>
+                                                        <Badge colorPalette="purple" size="sm">Recurring</Badge>
                                                     )}
                                                 </HStack>
                                                 <Text fontSize="sm" color="gray.600">
@@ -173,9 +142,7 @@ export default function Schedule({ slots = [], cohorts = [] }) {
                                                 <HStack gap={3} mt={1}>
                                                     <HStack gap={1} color="gray.500" fontSize="xs">
                                                         <FiUsers size={12} />
-                                                        <Text>
-                                                            {slot.bookings_count ?? 0}/{slot.max_attendees} booked
-                                                        </Text>
+                                                        <Text>{slot.bookings_count ?? 0}/{slot.max_attendees} booked</Text>
                                                     </HStack>
                                                     {slot.cohort && (
                                                         <Text fontSize="xs" color="blue.500">{slot.cohort.title}</Text>
@@ -191,22 +158,10 @@ export default function Schedule({ slots = [], cohorts = [] }) {
                                                 </HStack>
                                             </Box>
                                             <HStack gap={1}>
-                                                <Button
-                                                    size="sm"
-                                                    variant="ghost"
-                                                    colorScheme="gray"
-                                                    aria-label="Edit"
-                                                    onClick={() => router.get(route('instructor.office-hours.edit', slot.id))}
-                                                >
+                                                <Button size="sm" variant="ghost" colorPalette="gray" aria-label="Edit" onClick={() => router.get(route('instructor.office-hours.edit', slot.id))}>
                                                     <FiEdit2 />
                                                 </Button>
-                                                <Button
-                                                    size="sm"
-                                                    variant="ghost"
-                                                    colorScheme="red"
-                                                    aria-label="Delete"
-                                                    onClick={() => handleDelete(slot.id)}
-                                                >
+                                                <Button size="sm" variant="ghost" colorPalette="red" aria-label="Delete" onClick={() => handleDelete(slot.id)}>
                                                     <FiTrash2 />
                                                 </Button>
                                             </HStack>

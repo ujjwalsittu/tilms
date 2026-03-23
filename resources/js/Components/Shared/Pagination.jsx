@@ -24,7 +24,7 @@ export default function Pagination({ links, currentPage, lastPage }) {
                         <Button
                             size="sm"
                             variant={link.active ? 'solid' : 'outline'}
-                            colorScheme={link.active ? 'blue' : 'gray'}
+                            colorPalette={link.active ? 'blue' : 'gray'}
                             dangerouslySetInnerHTML={{ __html: link.label }}
                         />
                     </Link>

@@ -8,7 +8,6 @@ import {
     Flex,
     HStack,
     Input,
-    Select,
     SimpleGrid,
     Table,
     Text,
@@ -31,11 +30,11 @@ function CouponStatusBadge({ coupon }) {
     const uses = Number(coupon.uses_count ?? 0);
     const max = coupon.max_uses !== null ? Number(coupon.max_uses) : null;
 
-    if (!coupon.is_active) return <Badge colorScheme="gray">Inactive</Badge>;
-    if (until && now > until) return <Badge colorScheme="orange">Expired</Badge>;
-    if (from && now < from) return <Badge colorScheme="yellow">Scheduled</Badge>;
-    if (max !== null && uses >= max) return <Badge colorScheme="red">Exhausted</Badge>;
-    return <Badge colorScheme="green">Active</Badge>;
+    if (!coupon.is_active) return <Badge colorPalette="gray">Inactive</Badge>;
+    if (until && now > until) return <Badge colorPalette="orange">Expired</Badge>;
+    if (from && now < from) return <Badge colorPalette="yellow">Scheduled</Badge>;
+    if (max !== null && uses >= max) return <Badge colorPalette="red">Exhausted</Badge>;
+    return <Badge colorPalette="green">Active</Badge>;
 }
 
 const defaultForm = {
@@ -148,11 +147,10 @@ export default function Coupons({ cohort, coupons = [] }) {
                     </Text>
                 </Box>
                 <Button
-                    colorScheme="blue"
+                    colorPalette="blue"
                     onClick={() => setShowForm(v => !v)}
-                    leftIcon={<FiPlus />}
                 >
-                    {showForm ? 'Cancel' : 'New Coupon'}
+                    <FiPlus size={14} /> {showForm ? 'Cancel' : 'New Coupon'}
                 </Button>
             </Flex>
 
@@ -195,13 +193,14 @@ export default function Coupons({ cohort, coupons = [] }) {
                             <Text fontSize="sm" fontWeight="medium" mb={1}>
                                 Discount Type <Text as="span" color="red.500">*</Text>
                             </Text>
-                            <Select
+                            <select
                                 value={form.type}
                                 onChange={e => setField('type', e.target.value)}
+                                style={{ width: '100%', padding: '8px 12px', borderRadius: '6px', border: '1px solid #E2E8F0', fontSize: '14px', background: 'white' }}
                             >
                                 <option value="percentage">Percentage (%)</option>
                                 <option value="fixed">Fixed Amount (₹)</option>
-                            </Select>
+                            </select>
                         </Box>
 
                         {/* Value */}
@@ -303,13 +302,12 @@ export default function Coupons({ cohort, coupons = [] }) {
                             Cancel
                         </Button>
                         <Button
-                            type="submit"
-                            colorScheme="blue"
+                                type="submit"
+                            colorPalette="blue"
                             loading={submitting}
                             loadingText="Creating…"
-                            leftIcon={<FiTag />}
                         >
-                            Create Coupon
+                            <FiTag size={14} /> Create Coupon
                         </Button>
                     </Flex>
                 </Box>
@@ -330,7 +328,7 @@ export default function Coupons({ cohort, coupons = [] }) {
                             Coupons
                         </Text>
                         {coupons.length > 0 && (
-                            <Badge colorScheme="blue" variant="subtle">{coupons.length} total</Badge>
+                            <Badge colorPalette="blue" variant="subtle">{coupons.length} total</Badge>
                         )}
                     </Flex>
                 </Box>
@@ -346,11 +344,10 @@ export default function Coupons({ cohort, coupons = [] }) {
                         </Text>
                         <Button
                             size="sm"
-                            colorScheme="blue"
+                            colorPalette="blue"
                             onClick={() => setShowForm(true)}
-                            leftIcon={<FiPlus />}
                         >
-                            Create Coupon
+                            <FiPlus size={14} /> Create Coupon
                         </Button>
                     </Box>
                 ) : (
@@ -441,7 +438,7 @@ export default function Coupons({ cohort, coupons = [] }) {
                                                     <Button
                                                         size="sm"
                                                         variant="ghost"
-                                                        colorScheme="orange"
+                                                        colorPalette="orange"
                                                         onClick={() => handleDeactivate(coupon.id)}
                                                         title="Deactivate coupon"
                                                         aria-label="Deactivate"
@@ -452,7 +449,7 @@ export default function Coupons({ cohort, coupons = [] }) {
                                                 <Button
                                                     size="sm"
                                                     variant="ghost"
-                                                    colorScheme="red"
+                                                    colorPalette="red"
                                                     onClick={() => handleDelete(coupon.id)}
                                                     title="Delete coupon"
                                                     aria-label="Delete"

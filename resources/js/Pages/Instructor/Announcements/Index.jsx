@@ -63,11 +63,11 @@ function AnnouncementItem({ announcement, cohortId, onDelete }) {
                         Pin announcement
                     </label>
                     <HStack gap={2}>
-                        <Button type="submit" size="sm" colorScheme="blue" isLoading={processing} leftIcon={<FiCheck />}>
-                            Save
+                        <Button type="submit" size="sm" colorPalette="blue" loading={processing}>
+                            <FiCheck size={13} /> Save
                         </Button>
-                        <Button size="sm" variant="ghost" onClick={() => setEditing(false)} leftIcon={<FiX />}>
-                            Cancel
+                        <Button size="sm" variant="ghost" onClick={() => setEditing(false)}>
+                            <FiX size={13} /> Cancel
                         </Button>
                     </HStack>
                 </VStack>
@@ -81,7 +81,7 @@ function AnnouncementItem({ announcement, cohortId, onDelete }) {
                 <Box flex={1}>
                     <HStack gap={2} mb={1}>
                         {announcement.is_pinned && (
-                            <Badge colorScheme="orange">Pinned</Badge>
+                            <Badge colorPalette="orange">Pinned</Badge>
                         )}
                         <Text fontWeight="semibold">{announcement.title}</Text>
                     </HStack>
@@ -91,10 +91,10 @@ function AnnouncementItem({ announcement, cohortId, onDelete }) {
                     </Text>
                 </Box>
                 <HStack gap={1} ml={2}>
-                    <Button size="sm" variant="ghost" colorScheme="blue" aria-label="Edit" onClick={() => setEditing(true)}>
+                    <Button size="sm" variant="ghost" colorPalette="blue" aria-label="Edit" onClick={() => setEditing(true)}>
                         <FiEdit2 />
                     </Button>
-                    <Button size="sm" variant="ghost" colorScheme="red" aria-label="Delete" onClick={() => onDelete(announcement.id)}>
+                    <Button size="sm" variant="ghost" colorPalette="red" aria-label="Delete" onClick={() => onDelete(announcement.id)}>
                         <FiTrash2 />
                     </Button>
                 </HStack>
@@ -175,11 +175,10 @@ export default function Index({ cohort, announcements = [] }) {
                             </label>
                             <Button
                                 type="submit"
-                                colorScheme="blue"
-                                leftIcon={<FiPlus />}
-                                isLoading={processing}
+                                colorPalette="blue"
+                                loading={processing}
                                 loadingText="Posting..."
-                            >
+                            ><FiPlus size={13} />
                                 Post Announcement
                             </Button>
                         </Flex>

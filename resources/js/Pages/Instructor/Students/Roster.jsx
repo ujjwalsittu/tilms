@@ -9,14 +9,14 @@ import {
     Button,
     Flex,
     Input,
-    Select,
     Table,
     Text,
     Badge,
     HStack,
-    Progress,
 } from '@chakra-ui/react';
 import { FiSearch } from 'react-icons/fi';
+
+const sel = { padding: '8px 12px', borderRadius: '6px', border: '1px solid #E2E8F0', fontSize: '14px', background: 'white', maxWidth: '180px' };
 
 export default function Roster({ cohort, students }) {
     const [search, setSearch] = useState('');
@@ -50,7 +50,6 @@ export default function Roster({ cohort, students }) {
                 </HStack>
             </Flex>
 
-            {/* Filters */}
             <Box bg="white" p={4} borderRadius="lg" boxShadow="sm" borderWidth="1px" mb={6}>
                 <HStack gap={3} flexWrap="wrap">
                     <Input
@@ -60,24 +59,19 @@ export default function Roster({ cohort, students }) {
                         maxW="280px"
                         onKeyDown={(e) => e.key === 'Enter' && handleFilter()}
                     />
-                    <Select
-                        value={status}
-                        onChange={(e) => setStatus(e.target.value)}
-                        maxW="180px"
-                    >
+                    <select value={status} onChange={(e) => setStatus(e.target.value)} style={sel}>
                         <option value="">All Statuses</option>
                         <option value="active">Active</option>
                         <option value="pending">Pending</option>
                         <option value="completed">Completed</option>
                         <option value="dropped">Dropped</option>
-                    </Select>
-                    <Button onClick={handleFilter} leftIcon={<FiSearch />} colorScheme="blue" variant="outline">
-                        Search
+                    </select>
+                    <Button onClick={handleFilter} colorPalette="blue" variant="outline">
+                        <FiSearch size={14} /> Search
                     </Button>
                 </HStack>
             </Box>
 
-            {/* Table */}
             <Box bg="white" borderRadius="lg" boxShadow="sm" borderWidth="1px" overflow="hidden">
                 <Box overflowX="auto">
                     <Table.Root variant="line">
@@ -117,12 +111,13 @@ export default function Roster({ cohort, students }) {
                                         </Table.Cell>
                                         <Table.Cell minW="120px">
                                             <HStack gap={2}>
-                                                <Box flex={1}>
-                                                    <Progress
-                                                        value={progress}
-                                                        size="sm"
-                                                        colorScheme={progress >= 70 ? 'green' : progress >= 40 ? 'blue' : 'orange'}
+                                                <Box flex={1} bg="gray.100" borderRadius="full" h="6px" overflow="hidden">
+                                                    <Box
+                                                        h="100%"
                                                         borderRadius="full"
+                                                        bg={progress >= 70 ? 'green.400' : progress >= 40 ? 'blue.400' : 'orange.400'}
+                                                        w={`${progress}%`}
+                                                        transition="width 0.3s"
                                                     />
                                                 </Box>
                                                 <Text fontSize="xs" color="gray.600" w="32px">

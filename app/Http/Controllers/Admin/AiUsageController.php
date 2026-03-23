@@ -25,7 +25,7 @@ class AiUsageController extends Controller
         $byFeature = (clone $query)
             ->select(
                 'feature',
-                DB::raw('SUM(tokens_used) as total_tokens'),
+                DB::raw('SUM(total_tokens) as total_tokens'),
                 DB::raw('SUM(cost_usd) as total_cost'),
                 DB::raw('COUNT(*) as call_count')
             )
@@ -36,7 +36,7 @@ class AiUsageController extends Controller
         $byModel = (clone $query)
             ->select(
                 'model',
-                DB::raw('SUM(tokens_used) as total_tokens'),
+                DB::raw('SUM(total_tokens) as total_tokens'),
                 DB::raw('SUM(cost_usd) as total_cost'),
                 DB::raw('COUNT(*) as call_count')
             )
@@ -46,7 +46,7 @@ class AiUsageController extends Controller
 
         $totals = (clone $query)
             ->select(
-                DB::raw('SUM(tokens_used) as total_tokens'),
+                DB::raw('SUM(total_tokens) as total_tokens'),
                 DB::raw('SUM(cost_usd) as total_cost'),
                 DB::raw('COUNT(*) as total_calls')
             )

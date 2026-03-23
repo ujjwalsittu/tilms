@@ -45,10 +45,10 @@ const colorMap = {
 
 export default function StatusBadge({ status, label }) {
     const displayLabel = label || status?.replace(/_/g, ' ');
-    const colorScheme = colorMap[status] || 'gray';
+    const colorPalette = colorMap[status] || 'gray';
 
     return (
-        <Badge colorScheme={colorScheme} variant="subtle" textTransform="capitalize">
+        <Badge colorPalette={colorPalette} variant="subtle" textTransform="capitalize">
             {displayLabel}
         </Badge>
     );

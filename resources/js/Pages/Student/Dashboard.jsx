@@ -77,7 +77,7 @@ export default function Dashboard({ stats = {}, activeCohorts = [], recentTasks 
                     <Flex justify="space-between" align="center" mb={4}>
                         <Text fontWeight="semibold" fontSize="lg">My Cohorts</Text>
                         <Link href={route('student.cohorts.index')}>
-                            <Button size="sm" variant="ghost" colorScheme="blue">
+                            <Button size="sm" variant="ghost" colorPalette="blue">
                                 View all <FiArrowRight size={16} style={{marginLeft: '4px'}} />
                             </Button>
                         </Link>
@@ -86,7 +86,7 @@ export default function Dashboard({ stats = {}, activeCohorts = [], recentTasks 
                         <VStack gap={3} py={4}>
                             <Text color="gray.500" fontSize="sm">No active cohorts.</Text>
                             <Link href={route('student.cohorts.index')}>
-                                <Button size="sm" colorScheme="blue">Browse Cohorts</Button>
+                                <Button size="sm" colorPalette="blue">Browse Cohorts</Button>
                             </Link>
                         </VStack>
                     ) : (
@@ -112,7 +112,7 @@ export default function Dashboard({ stats = {}, activeCohorts = [], recentTasks 
                                         <Progress
                                             value={progress}
                                             size="sm"
-                                            colorScheme={progress >= 70 ? 'green' : 'blue'}
+                                            colorPalette={progress >= 70 ? 'green' : 'blue'}
                                             borderRadius="full"
                                         />
                                         <Text fontSize="xs" color="gray.500" mt={1}>{progress}% complete</Text>
@@ -127,7 +127,7 @@ export default function Dashboard({ stats = {}, activeCohorts = [], recentTasks 
                 <Box bg="white" p={6} borderRadius="lg" boxShadow="sm" borderWidth="1px">
                     <Flex justify="space-between" align="center" mb={4}>
                         <Text fontWeight="semibold" fontSize="lg">Recent Tasks</Text>
-                        <Badge colorScheme="green" variant="subtle">Up to date</Badge>
+                        <Badge colorPalette="green" variant="subtle">Up to date</Badge>
                     </Flex>
                     {recentTasks.length === 0 ? (
                         <Text color="gray.500" fontSize="sm" py={4}>No recent tasks.</Text>
@@ -153,7 +153,7 @@ export default function Dashboard({ stats = {}, activeCohorts = [], recentTasks 
                                                     </HStack>
                                                 )}
                                                 {task.difficulty && (
-                                                    <Badge size="sm" colorScheme={
+                                                    <Badge size="sm" colorPalette={
                                                         task.difficulty === 'beginner' ? 'green' :
                                                         task.difficulty === 'intermediate' ? 'blue' : 'red'
                                                     } variant="subtle">

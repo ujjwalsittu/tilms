@@ -13,12 +13,24 @@ class ApiKeyController extends Controller
     public function index()
     {
         $apiKeys = ApiKey::all()->map(function ($key) {
-            $decrypted = Crypt::decryptString($key->encrypted_value);
-            $masked = str_repeat('*', max(0, strlen($decrypted) - 4)) . substr($decrypted, -4);
+            try {
+                $decrypted = Crypt::decryptString($key->encrypted_value);
+                $masked = empty($decrypted)
+                    ? '(not set)'
+                    : str_repeat('*', max(0, strlen($decrypted) - 4)) . substr($decrypted, -4);
+            } catch (\Throwable) {
+                $masked = '(invalid)';
+            }
 
-            return array_merge($key->toArray(), [
+            return [
+                'id' => $key->id,
+                'service' => $key->service,
+                'key_name' => $key->key_name,
                 'masked_value' => $masked,
-            ]);
+                'is_active' => $key->is_active,
+                'environment' => $key->environment,
+                'last_rotated_at' => $key->last_rotated_at,
+            ];
         });
 
         return Inertia::render('Admin/Settings/ApiKeys', [
@@ -29,24 +41,25 @@ class ApiKeyController extends Controller
     public function update(Request $request, ApiKey $apiKey)
     {
         $validated = $request->validate([
-            'key_name' => ['required', 'string', 'max:255'],
             'value' => ['nullable', 'string'],
-            'is_active' => ['required', 'boolean'],
-            'environment' => ['required', 'string', 'in:production,staging,development,live,test,sandbox'],
+            'is_active' => ['nullable', 'boolean'],
         ]);
 
-        $updateData = [
-            'key_name' => $validated['key_name'],
-            'is_active' => $validated['is_active'],
-            'environment' => $validated['environment'],
-        ];
+        $updateData = [];
 
         if (! empty($validated['value'])) {
             $updateData['encrypted_value'] = Crypt::encryptString($validated['value']);
+            $updateData['last_rotated_at'] = now();
         }
 
-        $apiKey->update($updateData);
+        if (isset($validated['is_active'])) {
+            $updateData['is_active'] = $validated['is_active'];
+        }
 
-        return back()->with('success', 'API key updated successfully.');
+        if (! empty($updateData)) {
+            $apiKey->update($updateData);
+        }
+
+        return back()->with('success', "API key '{$apiKey->key_name}' updated.");
     }
 }

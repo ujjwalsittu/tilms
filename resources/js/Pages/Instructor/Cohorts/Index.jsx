@@ -64,20 +64,16 @@ export default function Index({ cohorts }) {
                         maxW="300px"
                         onKeyDown={(e) => e.key === 'Enter' && handleFilter()}
                     />
-                    <Select
-                        value={status}
-                        onChange={(e) => setStatus(e.target.value)}
-                        maxW="200px"
-                    >
+                    <select value={status} onChange={(e) => setStatus(e.target.value)} style={sel}>
                         <option value="">All Statuses</option>
                         <option value="draft">Draft</option>
                         <option value="registration_open">Registration Open</option>
                         <option value="active">Active</option>
                         <option value="completed">Completed</option>
                         <option value="closed">Closed</option>
-                    </Select>
-                    <Button onClick={handleFilter} leftIcon={<FiSearch />} colorScheme="blue" variant="outline">
-                        Search
+                    </select>
+                    <Button onClick={handleFilter} colorPalette="blue" variant="outline">
+                        <FiSearch size={14} /> Search
                     </Button>
                 </HStack>
             </Box>
@@ -111,7 +107,7 @@ export default function Index({ cohorts }) {
                                         <Text fontWeight="medium">{cohort.title}</Text>
                                     </Table.Cell>
                                     <Table.Cell>
-                                        <Badge colorScheme={typeColor[cohort.type] ?? 'gray'}>
+                                        <Badge colorPalette={typeColor[cohort.type] ?? 'gray'}>
                                             {cohort.type}
                                         </Badge>
                                     </Table.Cell>
@@ -130,19 +126,19 @@ export default function Index({ cohorts }) {
                                     <Table.Cell>
                                         <HStack gap={1}>
                                             <Link href={route('instructor.cohorts.show', cohort.id)}>
-                                                <Button size="sm" variant="ghost" colorScheme="blue" aria-label="View">
+                                                <Button size="sm" variant="ghost" colorPalette="blue" aria-label="View">
                                                     <FiEye />
                                                 </Button>
                                             </Link>
                                             <Link href={route('instructor.cohorts.edit', cohort.id)}>
-                                                <Button size="sm" variant="ghost" colorScheme="gray" aria-label="Edit">
+                                                <Button size="sm" variant="ghost" colorPalette="gray" aria-label="Edit">
                                                     <FiEdit2 />
                                                 </Button>
                                             </Link>
                                             <Button
                                                 size="sm"
                                                 variant="ghost"
-                                                colorScheme="teal"
+                                                colorPalette="teal"
                                                 aria-label="Clone"
                                                 onClick={() => handleClone(cohort.id)}
                                             >
@@ -152,7 +148,7 @@ export default function Index({ cohorts }) {
                                                 <Button
                                                     size="sm"
                                                     variant="ghost"
-                                                    colorScheme="red"
+                                                    colorPalette="red"
                                                     aria-label="Close"
                                                     onClick={() => handleClose(cohort.id)}
                                                 >

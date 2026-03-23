@@ -40,8 +40,8 @@ export default function LandingPageEditor({ cohort }) {
                         <Text color="gray.500" fontSize="sm" mt={1}>{cohort.title}</Text>
                     </Box>
                     <ChakraLink href={previewUrl} isExternal>
-                        <Button size="sm" leftIcon={<FiExternalLink />} variant="outline">
-                            Preview Page
+                        <Button size="sm" variant="outline">
+                            <FiExternalLink size={13} /> Preview Page
                         </Button>
                     </ChakraLink>
                 </Flex>
@@ -116,9 +116,8 @@ export default function LandingPageEditor({ cohort }) {
                             <Button variant="outline" onClick={() => window.history.back()}>Cancel</Button>
                             <Button
                                 type="submit"
-                                colorScheme="blue"
-                                leftIcon={<FiSave />}
-                                isLoading={processing}
+                                colorPalette="blue"
+                                loading={processing}
                                 loadingText="Saving..."
                             >
                                 Save Landing Page

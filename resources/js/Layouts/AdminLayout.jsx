@@ -1,8 +1,8 @@
-import { Link, usePage } from '@inertiajs/react';
-import { Box, Flex, VStack, HStack, Text } from '@chakra-ui/react';
+import { Link, usePage, router } from '@inertiajs/react';
+import { Box, Flex, VStack, HStack, Text, Button } from '@chakra-ui/react';
 import {
     FiHome, FiUsers, FiSettings, FiDollarSign, FiCpu,
-    FiFileText, FiLifeBuoy, FiShield, FiTag, FiCheckCircle, FiUser,
+    FiFileText, FiLifeBuoy, FiShield, FiTag, FiCheckCircle, FiUser, FiLogOut,
 } from 'react-icons/fi';
 
 const navItems = [
@@ -52,6 +52,14 @@ export default function AdminLayout({ children, title }) {
                         <Flex w={8} h={8} bg="blue.500" borderRadius="full" align="center" justify="center">
                             <Text fontSize="sm" color="white" fontWeight="bold">{auth?.user?.name?.[0]?.toUpperCase()}</Text>
                         </Flex>
+                        <Button
+                            size="sm"
+                            variant="ghost"
+                            color="gray.500"
+                            onClick={() => router.post(route('logout'))}
+                        >
+                            <FiLogOut size={16} /> Logout
+                        </Button>
                     </HStack>
                 </Flex>
                 <Box p={6}>{children}</Box>

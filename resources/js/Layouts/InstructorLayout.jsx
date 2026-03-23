@@ -1,6 +1,7 @@
-import { Link, usePage } from '@inertiajs/react';
+import { Link, usePage, router } from '@inertiajs/react';
 import {
     Box,
+    Button,
     Flex,
     VStack,
     HStack,
@@ -13,6 +14,7 @@ import {
     FiCheckSquare,
     FiClock,
     FiDollarSign,
+    FiLogOut,
 } from 'react-icons/fi';
 
 // Note: Announcements, Newsletter, and Students are cohort-scoped.
@@ -85,6 +87,9 @@ export default function InstructorLayout({ children, title }) {
                         <Flex w={8} h={8} bg="blue.500" borderRadius="full" align="center" justify="center">
                             <Text fontSize="sm" color="white" fontWeight="bold">{auth?.user?.name?.[0]?.toUpperCase()}</Text>
                         </Flex>
+                        <Button size="sm" variant="ghost" color="gray.500" onClick={() => router.post(route('logout'))}>
+                            <FiLogOut size={16} /> Logout
+                        </Button>
                     </HStack>
                 </Flex>
 

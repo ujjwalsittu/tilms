@@ -68,7 +68,7 @@ export default function Show({ cohort, tasks = [], enrollmentStats = {}, announc
                 <Flex justify="space-between" align="flex-start" flexWrap="wrap" gap={4}>
                     <Box>
                         <HStack gap={2} mb={2}>
-                            <Badge colorScheme={typeColor[cohort.type] ?? 'gray'} fontSize="sm">
+                            <Badge colorPalette={typeColor[cohort.type] ?? 'gray'} fontSize="sm">
                                 {cohort.type}
                             </Badge>
                             <StatusBadge status={cohort.status} />
@@ -90,19 +90,19 @@ export default function Show({ cohort, tasks = [], enrollmentStats = {}, announc
                     </Box>
                     <HStack gap={2} flexWrap="wrap">
                         <Link href={route('instructor.cohorts.edit', cohort.id)}>
-                            <Button size="sm" leftIcon={<FiEdit2 />} variant="outline">Edit</Button>
+                            <Button size="sm" variant="outline"><FiEdit2 size={13} /> Edit</Button>
                         </Link>
-                        <Button size="sm" leftIcon={<FiCopy />} variant="outline" onClick={handleClone}>
-                            Clone
+                        <Button size="sm" variant="outline" onClick={handleClone}>
+                            <FiCopy size={13} /> Clone
                         </Button>
                         <Link href={route('instructor.cohorts.landing-page', cohort.id)}>
-                            <Button size="sm" leftIcon={<FiLayout />} variant="outline" colorScheme="teal">
-                                Landing Page
+                            <Button size="sm" variant="outline" colorPalette="teal">
+                                <FiLayout size={13} /> Landing Page
                             </Button>
                         </Link>
                         {cohort.status !== 'closed' && (
-                            <Button size="sm" leftIcon={<FiXCircle />} colorScheme="red" variant="outline" onClick={handleClose}>
-                                Close Cohort
+                            <Button size="sm" colorPalette="red" variant="outline" onClick={handleClose}>
+                                <FiXCircle size={13} /> Close Cohort
                             </Button>
                         )}
                     </HStack>
@@ -151,14 +151,14 @@ export default function Show({ cohort, tasks = [], enrollmentStats = {}, announc
                         <Flex justify="space-between" align="center" p={4} borderBottomWidth="1px">
                             <Text fontWeight="semibold">Tasks</Text>
                             <Link href={route('instructor.tasks.bank')}>
-                                <Button size="sm" colorScheme="blue" leftIcon={<FiPlus />}>Add Task</Button>
+                                <Button size="sm" colorPalette="blue"><FiPlus size={13} /> Add Task</Button>
                             </Link>
                         </Flex>
                         {tasks.length === 0 ? (
                             <Box p={8} textAlign="center">
                                 <Text color="gray.500">No tasks assigned yet.</Text>
                                 <Link href={route('instructor.tasks.bank')}>
-                                    <Button mt={3} size="sm" colorScheme="blue">Browse Task Bank</Button>
+                                    <Button mt={3} size="sm" colorPalette="blue">Browse Task Bank</Button>
                                 </Link>
                             </Box>
                         ) : (
@@ -248,7 +248,7 @@ export default function Show({ cohort, tasks = [], enrollmentStats = {}, announc
                         <Flex justify="space-between" align="center" p={4} borderBottomWidth="1px">
                             <Text fontWeight="semibold">Announcements</Text>
                             <Link href={route('instructor.announcements.index', cohort.id)}>
-                                <Button size="sm" colorScheme="blue" leftIcon={<FiPlus />}>Manage</Button>
+                                <Button size="sm" colorPalette="blue"><FiPlus size={13} /> Manage</Button>
                             </Link>
                         </Flex>
                         {announcements.length === 0 ? (
@@ -260,7 +260,7 @@ export default function Show({ cohort, tasks = [], enrollmentStats = {}, announc
                                 {announcements.map((a) => (
                                     <Box key={a.id} p={4} borderBottomWidth="1px" _last={{ borderBottomWidth: 0 }}>
                                         <HStack gap={2} mb={1}>
-                                            {a.is_pinned && <Badge colorScheme="orange">Pinned</Badge>}
+                                            {a.is_pinned && <Badge colorPalette="orange">Pinned</Badge>}
                                             <Text fontWeight="medium">{a.title}</Text>
                                         </HStack>
                                         <Text fontSize="sm" color="gray.600" noOfLines={2}>{a.body}</Text>

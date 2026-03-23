@@ -77,7 +77,7 @@ export default function Dashboard({ stats = {}, recentSubmissions = [], cohorts 
                     <Flex justify="space-between" align="center" mb={4}>
                         <Text fontWeight="semibold" fontSize="lg">My Cohorts</Text>
                         <Link href={route('instructor.cohorts.index')}>
-                            <Button size="sm" variant="ghost" colorScheme="blue">
+                            <Button size="sm" variant="ghost" colorPalette="blue">
                                 View all <FiArrowRight size={16} style={{marginLeft: '4px'}} />
                             </Button>
                         </Link>
@@ -86,7 +86,7 @@ export default function Dashboard({ stats = {}, recentSubmissions = [], cohorts 
                         <VStack gap={3} py={4}>
                             <Text color="gray.500" fontSize="sm">No cohorts yet.</Text>
                             <Link href={route('instructor.cohorts.create')}>
-                                <Button size="sm" colorScheme="blue">Create your first cohort</Button>
+                                <Button size="sm" colorPalette="blue">Create your first cohort</Button>
                             </Link>
                         </VStack>
                     ) : (
@@ -125,7 +125,7 @@ export default function Dashboard({ stats = {}, recentSubmissions = [], cohorts 
                     <Flex justify="space-between" align="center" mb={4}>
                         <Text fontWeight="semibold" fontSize="lg">Recent Submissions</Text>
                         <Link href={route('instructor.submissions.index')}>
-                            <Button size="sm" variant="ghost" colorScheme="blue">
+                            <Button size="sm" variant="ghost" colorPalette="blue">
                                 Review queue <FiArrowRight size={16} style={{marginLeft: '4px'}} />
                             </Button>
                         </Link>
@@ -155,7 +155,7 @@ export default function Dashboard({ stats = {}, recentSubmissions = [], cohorts 
                                         <HStack gap={2}>
                                             <StatusBadge status={submission.status} />
                                             <Link href={route('instructor.submissions.show', submission.id)}>
-                                                <Button size="xs" colorScheme="orange" variant="outline">
+                                                <Button size="xs" colorPalette="orange" variant="outline">
                                                     Review
                                                 </Button>
                                             </Link>

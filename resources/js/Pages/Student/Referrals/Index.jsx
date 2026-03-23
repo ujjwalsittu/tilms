@@ -160,10 +160,9 @@ export default function Index({ referralCode, rewards = [], stats = {} }) {
                         color="purple.700"
                         _hover={{ bg: 'purple.50' }}
                         onClick={handleCopy}
-                        leftIcon={copied ? <FiCheck /> : <FiCopy />}
                         flexShrink={0}
                     >
-                        {copied ? 'Copied!' : 'Copy Link'}
+                        {copied ? <FiCheck size={14} /> : <FiCopy size={14} />} {copied ? 'Copied!' : 'Copy Link'}
                     </Button>
                 </HStack>
 

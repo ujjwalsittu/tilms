@@ -49,7 +49,7 @@ export default function Compose({ cohort, studentCount = 0 }) {
                     <Alert.Description>
                         <HStack gap={2}>
                             <Text>Sending to</Text>
-                            <Badge colorScheme="blue" fontSize="sm">{studentCount}</Badge>
+                            <Badge colorPalette="blue" fontSize="sm">{studentCount}</Badge>
                             <Text>
                                 enrolled {studentCount === 1 ? 'student' : 'students'} in
                                 <Text as="span" fontWeight="semibold"> {cohort.title}</Text>
@@ -97,12 +97,11 @@ export default function Compose({ cohort, studentCount = 0 }) {
                             <Button variant="outline" onClick={() => window.history.back()}>Cancel</Button>
                             <Button
                                 type="submit"
-                                colorScheme="blue"
-                                leftIcon={<FiSend />}
-                                isLoading={processing}
+                                colorPalette="blue"
+                                loading={processing}
                                 loadingText="Sending..."
-                                isDisabled={studentCount === 0}
-                            >
+                                disabled={studentCount === 0}
+                            ><FiSend size={14} />
                                 Send to {studentCount} {studentCount === 1 ? 'Student' : 'Students'}
                             </Button>
                         </HStack>

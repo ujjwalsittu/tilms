@@ -8,13 +8,14 @@ import {
     Box,
     Button,
     Flex,
-    Select,
     Table,
     Text,
     HStack,
     Badge,
 } from '@chakra-ui/react';
 import { FiSearch } from 'react-icons/fi';
+
+const sel = { padding: '8px 12px', borderRadius: '6px', border: '1px solid #E2E8F0', fontSize: '14px', background: 'white', maxWidth: '200px' };
 
 export default function ReviewQueue({ submissions, cohorts = [] }) {
     const [status, setStatus] = useState('');
@@ -36,37 +37,27 @@ export default function ReviewQueue({ submissions, cohorts = [] }) {
                 )}
             </Flex>
 
-            {/* Filters */}
             <Box bg="white" p={4} borderRadius="lg" boxShadow="sm" borderWidth="1px" mb={6}>
                 <HStack gap={3} flexWrap="wrap">
-                    <Select
-                        value={status}
-                        onChange={(e) => setStatus(e.target.value)}
-                        maxW="200px"
-                    >
+                    <select value={status} onChange={(e) => setStatus(e.target.value)} style={sel}>
                         <option value="">All Statuses</option>
                         <option value="submitted">Submitted</option>
                         <option value="ai_reviewed">AI Reviewed</option>
                         <option value="graded">Graded</option>
                         <option value="returned">Returned</option>
-                    </Select>
-                    <Select
-                        value={cohortId}
-                        onChange={(e) => setCohortId(e.target.value)}
-                        maxW="220px"
-                    >
+                    </select>
+                    <select value={cohortId} onChange={(e) => setCohortId(e.target.value)} style={{ ...sel, maxWidth: '220px' }}>
                         <option value="">All Cohorts</option>
                         {cohorts.map((c) => (
                             <option key={c.id} value={c.id}>{c.title}</option>
                         ))}
-                    </Select>
-                    <Button onClick={handleFilter} leftIcon={<FiSearch />} colorScheme="blue" variant="outline">
-                        Filter
+                    </select>
+                    <Button onClick={handleFilter} colorPalette="blue" variant="outline">
+                        <FiSearch size={14} /> Filter
                     </Button>
                 </HStack>
             </Box>
 
-            {/* Table */}
             <Box bg="white" borderRadius="lg" boxShadow="sm" borderWidth="1px" overflow="hidden">
                 <Box overflowX="auto">
                     <Table.Root variant="line">
@@ -108,9 +99,7 @@ export default function ReviewQueue({ submissions, cohorts = [] }) {
                                     </Table.Cell>
                                     <Table.Cell>
                                         {submission.ai_score != null ? (
-                                            <Badge
-                                                colorScheme={submission.ai_score >= 70 ? 'green' : submission.ai_score >= 40 ? 'orange' : 'red'}
-                                            >
+                                            <Badge colorPalette={submission.ai_score >= 70 ? 'green' : submission.ai_score >= 40 ? 'orange' : 'red'}>
                                                 {submission.ai_score}/100
                                             </Badge>
                                         ) : (
@@ -124,7 +113,7 @@ export default function ReviewQueue({ submissions, cohorts = [] }) {
                                     </Table.Cell>
                                     <Table.Cell>
                                         <Link href={route('instructor.submissions.show', submission.id)}>
-                                            <Button size="sm" colorScheme="blue" variant="outline">Review</Button>
+                                            <Button size="sm" colorPalette="blue" variant="outline">Review</Button>
                                         </Link>
                                     </Table.Cell>
                                 </Table.Row>
