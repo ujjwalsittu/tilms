@@ -6,13 +6,14 @@ import {
     Button,
     Flex,
     Input,
-    Select,
     Textarea,
     SimpleGrid,
     Text,
     VStack,
     HStack,
 } from '@chakra-ui/react';
+
+const nativeSelectStyle = { width: '100%', padding: '8px 12px', borderRadius: '6px', border: '1px solid #E2E8F0', fontSize: '14px', background: 'white' };
 
 export default function Create() {
     const { data, setData, post, processing, errors } = useForm({
@@ -72,13 +73,10 @@ export default function Create() {
 
                         <Box>
                             <Text fontSize="sm" fontWeight="medium" mb={1}>Type</Text>
-                            <Select
-                                value={data.type}
-                                onChange={(e) => setData('type', e.target.value)}
-                            >
+                            <select value={data.type} onChange={(e) => setData('type', e.target.value)} style={nativeSelectStyle}>
                                 <option value="learning">Learning</option>
                                 <option value="internship">Internship</option>
-                            </Select>
+                            </select>
                             {errors.type && <Text fontSize="sm" color="red.500" mt={1}>{errors.type}</Text>}
                         </Box>
 
@@ -103,15 +101,12 @@ export default function Create() {
 
                             <Box>
                                 <Text fontSize="sm" fontWeight="medium" mb={1}>Currency</Text>
-                                <Select
-                                    value={data.price_currency}
-                                    onChange={(e) => setData('price_currency', e.target.value)}
-                                >
+                                <select value={data.price_currency} onChange={(e) => setData('price_currency', e.target.value)} style={nativeSelectStyle}>
                                     <option value="INR">INR (₹)</option>
                                     <option value="USD">USD ($)</option>
                                     <option value="EUR">EUR (€)</option>
                                     <option value="GBP">GBP (£)</option>
-                                </Select>
+                                </select>
                                 {errors.price_currency && <Text fontSize="sm" color="red.500" mt={1}>{errors.price_currency}</Text>}
                             </Box>
                         </SimpleGrid>
@@ -151,13 +146,10 @@ export default function Create() {
                         <SimpleGrid columns={{ base: 1, md: 2 }} gap={4}>
                             <Box>
                                 <Text fontSize="sm" fontWeight="medium" mb={1}>Task Ordering</Text>
-                                <Select
-                                    value={data.task_ordering}
-                                    onChange={(e) => setData('task_ordering', e.target.value)}
-                                >
+                                <select value={data.task_ordering} onChange={(e) => setData('task_ordering', e.target.value)} style={nativeSelectStyle}>
                                     <option value="sequential">Sequential</option>
                                     <option value="shuffled">Shuffled</option>
-                                </Select>
+                                </select>
                                 {errors.task_ordering && <Text fontSize="sm" color="red.500" mt={1}>{errors.task_ordering}</Text>}
                             </Box>
 
@@ -226,8 +218,8 @@ export default function Create() {
                             </Button>
                             <Button
                                 type="submit"
-                                colorScheme="blue"
-                                isLoading={processing}
+                                colorPalette="blue"
+                                loading={processing}
                                 loadingText="Creating..."
                             >
                                 Create Cohort

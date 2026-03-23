@@ -9,7 +9,6 @@ import {
 import {
     FiHome,
     FiBook,
-    FiCode,
     FiMessageCircle,
     FiMic,
     FiAward,
@@ -19,6 +18,7 @@ import {
     FiShare2,
     FiStar,
     FiTrendingUp,
+    FiClock,
 } from 'react-icons/fi';
 
 const navItems = [
@@ -26,6 +26,7 @@ const navItems = [
     { label: 'My Cohorts', icon: FiBook, href: '/student/cohorts' },
     { label: 'AI Assistant', icon: FiMessageCircle, href: '/student/ai/doubt' },
     { label: 'Interview Prep', icon: FiMic, href: '/student/ai/interview' },
+    { label: 'Office Hours', icon: FiClock, href: '/student/office-hours' },
     { label: 'Progress', icon: FiTrendingUp, href: '/student/progress-reports' },
     { label: 'Certificates', icon: FiAward, href: '/student/certificates' },
     { label: 'Portfolio', icon: FiUser, href: '/student/portfolio/edit' },

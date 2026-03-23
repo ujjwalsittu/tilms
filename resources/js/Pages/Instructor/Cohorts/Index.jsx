@@ -9,13 +9,14 @@ import {
     Button,
     Flex,
     Input,
-    Select,
     Table,
     Text,
     Badge,
     HStack,
     VStack,
 } from '@chakra-ui/react';
+
+const sel = { padding: '8px 12px', borderRadius: '6px', border: '1px solid #E2E8F0', fontSize: '14px', background: 'white', maxWidth: '200px' };
 import { FiPlus, FiEye, FiEdit2, FiCopy, FiXCircle, FiSearch } from 'react-icons/fi';
 
 export default function Index({ cohorts }) {
@@ -49,7 +50,7 @@ export default function Index({ cohorts }) {
             <Flex justify="space-between" align="center" mb={6}>
                 <Text fontSize="2xl" fontWeight="bold">My Cohorts</Text>
                 <Link href={route('instructor.cohorts.create')}>
-                    <Button colorScheme="blue" leftIcon={<FiPlus />}>Create Cohort</Button>
+                    <Button colorPalette="blue"><FiPlus size={14} /> Create Cohort</Button>
                 </Link>
             </Flex>
 

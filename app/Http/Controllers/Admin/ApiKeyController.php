@@ -32,7 +32,7 @@ class ApiKeyController extends Controller
             'key_name' => ['required', 'string', 'max:255'],
             'value' => ['nullable', 'string'],
             'is_active' => ['required', 'boolean'],
-            'environment' => ['required', 'string', 'in:production,staging,development'],
+            'environment' => ['required', 'string', 'in:production,staging,development,live,test,sandbox'],
         ]);
 
         $updateData = [

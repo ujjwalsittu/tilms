@@ -25,5 +25,14 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->validateCsrfTokens(except: ['webhooks/*']);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-        //
+        // Log all exceptions to file for debugging
+        $exceptions->report(function (\Throwable $e) {
+            \Illuminate\Support\Facades\Log::channel('single')->error($e->getMessage(), [
+                'url' => request()->fullUrl(),
+                'method' => request()->method(),
+                'user_id' => auth()->id(),
+                'file' => $e->getFile() . ':' . $e->getLine(),
+                'trace' => collect($e->getTrace())->take(5)->map(fn($t) => ($t['file'] ?? '') . ':' . ($t['line'] ?? ''))->toArray(),
+            ]);
+        });
     })->create();

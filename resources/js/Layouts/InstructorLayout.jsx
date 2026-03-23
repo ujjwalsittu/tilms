@@ -12,22 +12,18 @@ import {
     FiDatabase,
     FiCheckSquare,
     FiClock,
-    FiMessageSquare,
-    FiMail,
     FiDollarSign,
-    FiUsers,
 } from 'react-icons/fi';
 
+// Note: Announcements, Newsletter, and Students are cohort-scoped.
+// Access them via Cohorts > select a cohort.
 const navItems = [
     { label: 'Dashboard', icon: FiHome, href: '/instructor/dashboard' },
     { label: 'Cohorts', icon: FiBook, href: '/instructor/cohorts' },
     { label: 'Task Bank', icon: FiDatabase, href: '/instructor/tasks' },
     { label: 'Submissions', icon: FiCheckSquare, href: '/instructor/submissions' },
     { label: 'Office Hours', icon: FiClock, href: '/instructor/office-hours' },
-    { label: 'Announcements', icon: FiMessageSquare, href: '/instructor/announcements' },
-    { label: 'Newsletter', icon: FiMail, href: '/instructor/newsletter' },
     { label: 'Finance', icon: FiDollarSign, href: '/instructor/finance' },
-    { label: 'Students', icon: FiUsers, href: '/instructor/students' },
 ];
 
 export default function InstructorLayout({ children, title }) {

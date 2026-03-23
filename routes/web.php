@@ -81,6 +81,9 @@ Route::middleware(['auth', 'verified', 'role:admin'])
         // Institutional Partners
         Route::resource('partners', Admin\PartnerController::class)->except(['edit']);
         Route::post('partners/{partner}/bulk-enroll', [Admin\PartnerController::class, 'bulkEnroll'])->name('partners.bulk-enroll');
+
+        // Coupons (platform-wide view)
+        Route::get('coupons', [Admin\CouponController::class, 'index'])->name('coupons.index');
     });
 
 // Instructor routes
@@ -205,6 +208,10 @@ Route::middleware(['auth', 'verified', 'role:student'])
         Route::post('support', [Student\SupportController::class, 'store'])->name('support.store');
         Route::get('support/{ticket}', [Student\SupportController::class, 'show'])->name('support.show');
         Route::post('support/{ticket}/reply', [Student\SupportController::class, 'reply'])->name('support.reply');
+
+        // Office Hours (student booking)
+        Route::get('office-hours', [Student\OfficeHoursController::class, 'index'])->name('office-hours.index');
+        Route::post('office-hours/{slot}/book', [Student\OfficeHoursController::class, 'book'])->name('office-hours.book');
 
         // Notifications
         Route::get('notifications', [Student\NotificationController::class, 'index'])->name('notifications.index');
