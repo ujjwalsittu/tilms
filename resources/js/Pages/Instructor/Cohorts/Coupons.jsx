@@ -107,12 +107,12 @@ export default function Coupons({ cohort, coupons = [] }) {
 
     const handleDeactivate = (couponId) => {
         if (!confirm('Deactivate this coupon? Existing uses will not be affected.')) return;
-        router.patch(route('instructor.cohorts.coupons.deactivate', [cohort.id, couponId]));
+        router.patch(route('instructor.cohorts.coupons.deactivate', couponId));
     };
 
     const handleDelete = (couponId) => {
         if (!confirm('Delete this coupon permanently?')) return;
-        router.delete(route('instructor.cohorts.coupons.destroy', [cohort.id, couponId]));
+        router.delete(route('instructor.cohorts.coupons.destroy', couponId));
     };
 
     const formatValue = (coupon) => {

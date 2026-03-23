@@ -12,7 +12,7 @@ import {
     HStack,
     Badge,
 } from '@chakra-ui/react';
-import { FiPlus, FiEdit2, FiTrash2, FiCalendar, FiUsers, FiLink } from 'react-icons/fi';
+import { FiPlus, FiTrash2, FiCalendar, FiUsers, FiLink } from 'react-icons/fi';
 
 const sel = { width: '100%', padding: '8px 12px', borderRadius: '6px', border: '1px solid #E2E8F0', fontSize: '14px', background: 'white' };
 
@@ -158,9 +158,6 @@ export default function Schedule({ slots = [], cohorts = [] }) {
                                                 </HStack>
                                             </Box>
                                             <HStack gap={1}>
-                                                <Button size="sm" variant="ghost" colorPalette="gray" aria-label="Edit" onClick={() => router.get(route('instructor.office-hours.edit', slot.id))}>
-                                                    <FiEdit2 />
-                                                </Button>
                                                 <Button size="sm" variant="ghost" colorPalette="red" aria-label="Delete" onClick={() => handleDelete(slot.id)}>
                                                     <FiTrash2 />
                                                 </Button>

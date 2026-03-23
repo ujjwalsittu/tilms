@@ -64,7 +64,7 @@ export default function SupportShow({ ticket, messages }) {
     };
 
     const handleStatusChange = (e) => {
-        router.patch(route('admin.support.update-status', ticket.id), { status: e.target.value }, { preserveState: true });
+        router.put(route('admin.support.update', ticket.id), { status: e.target.value }, { preserveState: true });
     };
 
     return (

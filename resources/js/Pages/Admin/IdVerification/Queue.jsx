@@ -27,13 +27,13 @@ function Pagination({ links }) {
 export default function IdVerificationQueue({ users }) {
     const handleApprove = (userId) => {
         if (confirm('Approve this ID verification?')) {
-            router.patch(route('admin.id-verification.approve', userId));
+            router.put(route('admin.id-verification.update', userId), { status: 'approved' });
         }
     };
 
     const handleReject = (userId) => {
         const reason = prompt('Enter rejection reason (optional):');
-        router.patch(route('admin.id-verification.reject', userId), { reason: reason ?? '' });
+        router.put(route('admin.id-verification.update', userId), { status: 'rejected', reason: reason ?? '' });
     };
 
     return (

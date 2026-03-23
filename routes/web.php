@@ -137,6 +137,12 @@ Route::middleware(['auth', 'verified', 'role:instructor'])
 
         // Certification
         Route::post('cohorts/{cohort}/certify', [Instructor\CertificationController::class, 'generate'])->name('cohorts.certify');
+
+        // Coupons
+        Route::get('cohorts/{cohort}/coupons', [Instructor\CouponController::class, 'index'])->name('cohorts.coupons.index');
+        Route::post('cohorts/{cohort}/coupons', [Instructor\CouponController::class, 'store'])->name('cohorts.coupons.store');
+        Route::patch('coupons/{coupon}/deactivate', [Instructor\CouponController::class, 'deactivate'])->name('cohorts.coupons.deactivate');
+        Route::delete('coupons/{coupon}', [Instructor\CouponController::class, 'destroy'])->name('cohorts.coupons.destroy');
     });
 
 // Student routes

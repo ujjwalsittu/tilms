@@ -25,7 +25,7 @@ export default function Index({ enrollments = [] }) {
 
             <Flex justify="space-between" align="center" mb={6}>
                 <Text fontSize="2xl" fontWeight="bold">My Cohorts</Text>
-                <Link href={route('cohorts.index')}>
+                <Link href={route('student.cohorts.index')}>
                     <Button size="sm" colorPalette="blue" variant="outline">Browse More Cohorts</Button>
                 </Link>
             </Flex>
@@ -39,7 +39,7 @@ export default function Index({ enrollments = [] }) {
                     <Text color="gray.500" mb={4}>
                         Browse available cohorts and start your learning journey.
                     </Text>
-                    <Link href={route('cohorts.index')}>
+                    <Link href={route('student.cohorts.index')}>
                         <Button colorPalette="blue">Browse Cohorts</Button>
                     </Link>
                 </Box>

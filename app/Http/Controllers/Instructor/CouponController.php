@@ -47,7 +47,7 @@ class CouponController extends Controller
         return back()->with('success', 'Coupon created successfully.');
     }
 
-    public function destroy(DiscountCoupon $coupon)
+    public function deactivate(DiscountCoupon $coupon)
     {
         $cohort = $coupon->cohort;
         abort_if($cohort && $cohort->instructor_id !== auth()->id(), 403);
@@ -55,5 +55,15 @@ class CouponController extends Controller
         $coupon->update(['is_active' => false]);
 
         return back()->with('success', 'Coupon deactivated.');
+    }
+
+    public function destroy(DiscountCoupon $coupon)
+    {
+        $cohort = $coupon->cohort;
+        abort_if($cohort && $cohort->instructor_id !== auth()->id(), 403);
+
+        $coupon->delete();
+
+        return back()->with('success', 'Coupon deleted.');
     }
 }

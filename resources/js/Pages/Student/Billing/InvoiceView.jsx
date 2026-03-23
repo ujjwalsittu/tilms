@@ -67,7 +67,7 @@ export default function InvoiceView({ invoice }) {
             {/* Print / Download actions — hidden when printing */}
             <Flex justify="flex-end" gap={3} mb={6} className="no-print">
                 <a
-                    href={route('student.billing.invoice.download', invoice?.id)}
+                    href={route('student.billing.invoice', invoice?.id)}
                     target="_blank"
                     rel="noopener noreferrer"
                 >

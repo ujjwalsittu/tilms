@@ -26,7 +26,7 @@ export default function Bank({ tasks }) {
     const [difficulty, setDifficulty] = useState('');
 
     const handleFilter = () => {
-        router.get(route('instructor.tasks.bank'), { search, type, difficulty }, { preserveState: true });
+        router.get(route('instructor.tasks.index'), { search, type, difficulty }, { preserveState: true });
     };
 
     return (
@@ -129,7 +129,7 @@ export default function Bank({ tasks }) {
                                                     <FiEdit2 />
                                                 </Button>
                                             </Link>
-                                            <Link href={route('instructor.tasks.assign', task.id)}>
+                                            <Link href={`/instructor/tasks/${task.id}/assign`}>
                                                 <Button size="sm" variant="ghost" colorPalette="blue" aria-label="Assign to Cohort">
                                                     <FiSend />
                                                 </Button>

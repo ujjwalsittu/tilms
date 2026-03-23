@@ -27,7 +27,7 @@ export default function Checkout({ cohort, razorpayKeyId, environment }) {
         if (!couponCode.trim()) return;
         setError('');
         try {
-            const response = await fetch(route('student.checkout.validate-coupon'), {
+            const response = await fetch(route('student.checkout.create-order', cohort.id), {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

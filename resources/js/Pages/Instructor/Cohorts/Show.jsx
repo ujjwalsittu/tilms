@@ -167,14 +167,14 @@ export default function Show({ cohort, tasks = [], enrollmentStats = {}, announc
                     <Box bg="white" borderRadius="lg" boxShadow="sm" borderWidth="1px" overflow="hidden">
                         <Flex justify="space-between" align="center" p={4} borderBottomWidth="1px">
                             <Text fontWeight="semibold">Tasks</Text>
-                            <Link href={route('instructor.tasks.bank')}>
+                            <Link href={route('instructor.tasks.index')}>
                                 <Button size="sm" colorPalette="blue"><FiPlus size={13} /> Add Task</Button>
                             </Link>
                         </Flex>
                         {tasks.length === 0 ? (
                             <Box p={8} textAlign="center">
                                 <Text color="gray.500">No tasks assigned yet.</Text>
-                                <Link href={route('instructor.tasks.bank')}>
+                                <Link href={route('instructor.tasks.index')}>
                                     <Button mt={3} size="sm" colorPalette="blue">Browse Task Bank</Button>
                                 </Link>
                             </Box>
@@ -224,7 +224,7 @@ export default function Show({ cohort, tasks = [], enrollmentStats = {}, announc
                     <Box bg="white" borderRadius="lg" boxShadow="sm" borderWidth="1px" overflow="hidden">
                         <Flex justify="space-between" align="center" p={4} borderBottomWidth="1px">
                             <Text fontWeight="semibold">Enrolled Students</Text>
-                            <Link href={route('instructor.students.roster', cohort.id)}>
+                            <Link href={route('instructor.roster.index', cohort.id)}>
                                 <Button size="sm" variant="outline">View Full Roster</Button>
                             </Link>
                         </Flex>

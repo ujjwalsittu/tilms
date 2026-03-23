@@ -524,7 +524,7 @@ export default function Show({ cohort, cohortTask, task, submission, discussions
 
                             {/* Full-screen editor link for individual tasks */}
                             {task?.type === 'individual' && (
-                                <Link href={route('student.tasks.code-editor', cohortTask.id)}>
+                                <Link href={route('student.tasks.editor', cohortTask.id)}>
                                     <Button w="full" variant="outline" colorPalette="blue" size="sm">
                                         Open Full-Screen Editor
                                     </Button>

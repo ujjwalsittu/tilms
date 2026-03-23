@@ -226,7 +226,7 @@ export default function Index({ payments }) {
                                                             </Button>
                                                         </Link>
                                                         <a
-                                                            href={route('student.billing.invoice.download', payment.invoice.id)}
+                                                            href={route('student.billing.invoice', payment.invoice.id)}
                                                             target="_blank"
                                                             rel="noopener noreferrer"
                                                         >

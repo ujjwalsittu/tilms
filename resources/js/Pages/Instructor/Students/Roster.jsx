@@ -24,7 +24,7 @@ export default function Roster({ cohort, students }) {
 
     const handleFilter = () => {
         router.get(
-            route('instructor.students.roster', cohort.id),
+            route('instructor.roster.index', cohort.id),
             { search, status },
             { preserveState: true }
         );
@@ -138,7 +138,7 @@ export default function Roster({ cohort, students }) {
                                             </Text>
                                         </Table.Cell>
                                         <Table.Cell>
-                                            <Link href={route('instructor.students.show', [cohort.id, student.id])}>
+                                            <Link href={route('instructor.roster.show', [cohort.id, student.id])}>
                                                 <Button size="xs" variant="outline">View</Button>
                                             </Link>
                                         </Table.Cell>

@@ -36,7 +36,7 @@ export default function StudentDetail({ cohort, student, submissions = [], enrol
 
             {/* Breadcrumb */}
             <HStack gap={2} mb={6} fontSize="sm" color="gray.500">
-                <Link href={route('instructor.students.roster', cohort.id)}>
+                <Link href={route('instructor.roster.index', cohort.id)}>
                     <Text color="blue.500" _hover={{ textDecoration: 'underline' }}>Roster</Text>
                 </Link>
                 <Text>/</Text>

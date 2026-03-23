@@ -805,7 +805,7 @@ export default function CertificateTemplates({ templates }) {
     };
 
     const handleSetDefault = (template) => {
-        router.patch(route('admin.certificate-templates.set-default', template.id));
+        router.patch(route('admin.certificate-templates.update', template.id), { is_default: true });
     };
 
     const handleDesignerClose = () => setMode('list');

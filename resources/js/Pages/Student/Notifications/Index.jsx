@@ -103,7 +103,7 @@ export default function NotificationsIndex({ notifications }) {
     };
 
     const handleMarkRead = (id) => {
-        router.post(route('student.notifications.mark-read', id));
+        router.put(route('student.notifications.read', id));
     };
 
     const unreadCount = notifications.data.filter((n) => !n.read_at).length;
