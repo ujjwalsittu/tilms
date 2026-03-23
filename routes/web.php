@@ -77,6 +77,10 @@ Route::middleware(['auth', 'verified', 'role:admin'])
         // ID Verification
         Route::get('id-verification', [Admin\IdVerificationQueueController::class, 'index'])->name('id-verification.index');
         Route::put('id-verification/{user}', [Admin\IdVerificationQueueController::class, 'update'])->name('id-verification.update');
+
+        // Institutional Partners
+        Route::resource('partners', Admin\PartnerController::class)->except(['edit']);
+        Route::post('partners/{partner}/bulk-enroll', [Admin\PartnerController::class, 'bulkEnroll'])->name('partners.bulk-enroll');
     });
 
 // Instructor routes
@@ -127,6 +131,9 @@ Route::middleware(['auth', 'verified', 'role:instructor'])
         // Student Roster
         Route::get('cohorts/{cohort}/students', [Instructor\StudentRosterController::class, 'index'])->name('roster.index');
         Route::get('cohorts/{cohort}/students/{user}', [Instructor\StudentRosterController::class, 'show'])->name('roster.show');
+
+        // Certification
+        Route::post('cohorts/{cohort}/certify', [Instructor\CertificationController::class, 'generate'])->name('cohorts.certify');
     });
 
 // Student routes
@@ -180,6 +187,29 @@ Route::middleware(['auth', 'verified', 'role:student'])
 
         // Referrals
         Route::get('referrals', [Student\ReferralController::class, 'index'])->name('referrals.index');
+
+        // Certificates
+        Route::get('certificates', [Student\CertificateController::class, 'index'])->name('certificates.index');
+        Route::get('certificates/{certificate}/download', [Student\CertificateController::class, 'download'])->name('certificates.download');
+
+        // Portfolio
+        Route::get('portfolio/edit', [Student\PortfolioController::class, 'edit'])->name('portfolio.edit');
+        Route::put('portfolio', [Student\PortfolioController::class, 'update'])->name('portfolio.update');
+
+        // Badges
+        Route::get('badges', [Student\BadgeController::class, 'index'])->name('badges.index');
+
+        // Support
+        Route::get('support', [Student\SupportController::class, 'index'])->name('support.index');
+        Route::get('support/create', [Student\SupportController::class, 'create'])->name('support.create');
+        Route::post('support', [Student\SupportController::class, 'store'])->name('support.store');
+        Route::get('support/{ticket}', [Student\SupportController::class, 'show'])->name('support.show');
+        Route::post('support/{ticket}/reply', [Student\SupportController::class, 'reply'])->name('support.reply');
+
+        // Notifications
+        Route::get('notifications', [Student\NotificationController::class, 'index'])->name('notifications.index');
+        Route::put('notifications/{id}/read', [Student\NotificationController::class, 'markAsRead'])->name('notifications.read');
+        Route::post('notifications/mark-all-read', [Student\NotificationController::class, 'markAllRead'])->name('notifications.mark-all-read');
     });
 
 // Webhook routes (no auth, no CSRF)
@@ -189,12 +219,7 @@ Route::post('/webhooks/razorpay', [App\Http\Controllers\WebhookController::class
 Route::get('/ref/{code}', [App\Http\Controllers\Public\AffiliateRedirectController::class, 'redirect'])->name('affiliate.redirect');
 Route::get('/cohort/{slug}', [App\Http\Controllers\Public\CohortLandingController::class, 'show'])->name('cohort.landing');
 
-Route::get('/verify/{uuid}', function (string $uuid) {
-    return Inertia::render('Public/CertificateVerify', ['uuid' => $uuid]);
-})->name('certificate.verify');
-
-Route::get('/portfolio/{slug}', function (string $slug) {
-    return Inertia::render('Public/Portfolio', ['slug' => $slug]);
-})->name('portfolio.view');
+Route::get('/verify/{uuid}', [App\Http\Controllers\Public\CertificateVerificationController::class, 'show'])->name('certificate.verify');
+Route::get('/portfolio/{slug}', [App\Http\Controllers\Public\PortfolioViewController::class, 'show'])->name('portfolio.view');
 
 require __DIR__.'/auth.php';
