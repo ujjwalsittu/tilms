@@ -6,9 +6,6 @@ import {
     HStack,
     Text,
     Icon,
-    Avatar,
-    Menu,
-    Portal,
 } from '@chakra-ui/react';
 import {
     FiHome,
@@ -96,7 +93,9 @@ export default function AdminLayout({ children, title }) {
 
                     <HStack gap={3}>
                         <Text fontSize="sm" color="gray.600">{auth?.user?.name}</Text>
-                        <Avatar size="sm" name={auth?.user?.name} />
+                        <Flex w={8} h={8} bg="blue.500" borderRadius="full" align="center" justify="center">
+                            <Text fontSize="sm" color="white" fontWeight="bold">{auth?.user?.name?.[0]?.toUpperCase()}</Text>
+                        </Flex>
                     </HStack>
                 </Flex>
 
