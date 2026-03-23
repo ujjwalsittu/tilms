@@ -48,7 +48,7 @@ export default function DoubtAssistant({ conversations }) {
                         </Text>
                     </Box>
                     <Button
-                        colorScheme="blue"
+                        colorPalette="blue"
                         onClick={() => setShowForm(!showForm)}
                         size="sm"
                     >
@@ -147,7 +147,7 @@ export default function DoubtAssistant({ conversations }) {
                                         Cancel
                                     </Button>
                                     <Button
-                                        colorScheme="blue"
+                                        colorPalette="blue"
                                         type="submit"
                                         size="sm"
                                         loading={processing}
@@ -207,7 +207,7 @@ export default function DoubtAssistant({ conversations }) {
                                                         {conversation.title || 'Untitled Conversation'}
                                                     </Text>
                                                     {conversation.context_type && (
-                                                        <Badge colorScheme="blue" fontSize="xs">
+                                                        <Badge colorPalette="blue" fontSize="xs">
                                                             {conversation.context_type}
                                                         </Badge>
                                                     )}
@@ -243,7 +243,7 @@ export default function DoubtAssistant({ conversations }) {
                                     <Button
                                         size="xs"
                                         variant={link.active ? 'solid' : 'outline'}
-                                        colorScheme={link.active ? 'blue' : 'gray'}
+                                        colorPalette={link.active ? 'blue' : 'gray'}
                                         disabled={!link.url}
                                         dangerouslySetInnerHTML={{ __html: link.label }}
                                     />

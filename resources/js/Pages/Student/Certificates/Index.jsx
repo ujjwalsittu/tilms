@@ -57,7 +57,7 @@ function CertificateCard({ cert }) {
                     >
                         <FiAward size={22} color="#7C3AED" />
                     </Flex>
-                    <Badge colorScheme={typeColor[cohort.type] ?? 'gray'} variant="subtle">
+                    <Badge colorPalette={typeColor[cohort.type] ?? 'gray'} variant="subtle">
                         {cohort.type ?? 'cohort'}
                     </Badge>
                 </Flex>
@@ -98,7 +98,7 @@ function CertificateCard({ cert }) {
                         <Button
                             size="xs"
                             variant="ghost"
-                            colorScheme={copied ? 'green' : 'gray'}
+                            colorPalette={copied ? 'green' : 'gray'}
                             onClick={handleCopy}
                             aria-label="Copy verification URL"
                         >
@@ -118,7 +118,7 @@ function CertificateCard({ cert }) {
                         <Button
                             w="full"
                             size="sm"
-                            colorScheme="purple"
+                            colorPalette="purple"
                             variant="outline"
                         >
                             <FiDownload size={13} style={{ marginRight: 4 }} />
@@ -127,7 +127,7 @@ function CertificateCard({ cert }) {
                     </a>
                     <Button
                         size="sm"
-                        colorScheme="blue"
+                        colorPalette="blue"
                         variant="ghost"
                         onClick={handleCopy}
                         aria-label="Share certificate"

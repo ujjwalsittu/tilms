@@ -35,7 +35,7 @@ function TagList({ tags }) {
     return (
         <HStack gap={2} flexWrap="wrap" mt={2}>
             {tags.map((t) => (
-                <Badge key={t} colorScheme="blue" variant="subtle" borderRadius="full" px={2} py={0.5}>
+                <Badge key={t} colorPalette="blue" variant="subtle" borderRadius="full" px={2} py={0.5}>
                     {t}
                 </Badge>
             ))}
@@ -124,7 +124,7 @@ function PortfolioPreview({ form, user, completedCohorts, certificates, projectS
                                             </Text>
                                         )}
                                     </Box>
-                                    <Badge colorScheme={typeColor[cohort.type] ?? 'gray'} fontSize="xs">
+                                    <Badge colorPalette={typeColor[cohort.type] ?? 'gray'} fontSize="xs">
                                         {cohort.type}
                                     </Badge>
                                 </Flex>
@@ -265,7 +265,7 @@ export default function Edit({
                 <HStack gap={2}>
                     {shareUrl && (
                         <a href={shareUrl} target="_blank" rel="noreferrer">
-                            <Button size="sm" variant="outline" colorScheme="blue">
+                            <Button size="sm" variant="outline" colorPalette="blue">
                                 <FiEye size={13} style={{ marginRight: 4 }} />
                                 View Public
                             </Button>
@@ -273,7 +273,7 @@ export default function Edit({
                     )}
                     <Button
                         size="sm"
-                        colorScheme="blue"
+                        colorPalette="blue"
                         onClick={handleSave}
                         loading={saving}
                     >
@@ -343,7 +343,7 @@ export default function Edit({
                                     .map((skill) => (
                                         <Badge
                                             key={skill}
-                                            colorScheme="blue"
+                                            colorPalette="blue"
                                             variant="subtle"
                                             borderRadius="full"
                                             px={2}
@@ -398,7 +398,7 @@ export default function Edit({
                                 </Text>
                                 <Button
                                     size="xs"
-                                    colorScheme={copied ? 'green' : 'blue'}
+                                    colorPalette={copied ? 'green' : 'blue'}
                                     variant="outline"
                                     onClick={handleCopyShare}
                                 >
@@ -411,7 +411,7 @@ export default function Edit({
                     {/* Save */}
                     <Button
                         w="full"
-                        colorScheme="blue"
+                        colorPalette="blue"
                         size="md"
                         onClick={handleSave}
                         loading={saving}

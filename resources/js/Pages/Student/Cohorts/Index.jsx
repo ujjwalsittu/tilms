@@ -26,7 +26,7 @@ export default function Index({ enrollments = [] }) {
             <Flex justify="space-between" align="center" mb={6}>
                 <Text fontSize="2xl" fontWeight="bold">My Cohorts</Text>
                 <Link href={route('cohorts.index')}>
-                    <Button size="sm" colorScheme="blue" variant="outline">Browse More Cohorts</Button>
+                    <Button size="sm" colorPalette="blue" variant="outline">Browse More Cohorts</Button>
                 </Link>
             </Flex>
 
@@ -40,7 +40,7 @@ export default function Index({ enrollments = [] }) {
                         Browse available cohorts and start your learning journey.
                     </Text>
                     <Link href={route('cohorts.index')}>
-                        <Button colorScheme="blue">Browse Cohorts</Button>
+                        <Button colorPalette="blue">Browse Cohorts</Button>
                     </Link>
                 </Box>
             ) : (
@@ -69,7 +69,7 @@ export default function Index({ enrollments = [] }) {
                                 <Box p={5}>
                                     {/* Badges */}
                                     <HStack gap={2} mb={3}>
-                                        <Badge colorScheme={typeColor[cohort.type] ?? 'gray'}>
+                                        <Badge colorPalette={typeColor[cohort.type] ?? 'gray'}>
                                             {cohort.type}
                                         </Badge>
                                         <StatusBadge status={enrollment.status} />
@@ -99,7 +99,7 @@ export default function Index({ enrollments = [] }) {
                                         <Progress
                                             value={progress}
                                             size="sm"
-                                            colorScheme={progress >= 70 ? 'green' : progress >= 40 ? 'blue' : 'orange'}
+                                            colorPalette={progress >= 70 ? 'green' : progress >= 40 ? 'blue' : 'orange'}
                                             borderRadius="full"
                                         />
                                         <Text fontSize="xs" color="gray.400" mt={1}>
@@ -126,9 +126,8 @@ export default function Index({ enrollments = [] }) {
                                     <Link href={route('student.cohorts.show', cohort.id)}>
                                         <Button
                                             w="full"
-                                            colorScheme="blue"
+                                            colorPalette="blue"
                                             size="sm"
-                                            rightIcon={<FiArrowRight />}
                                             variant={enrollment.status === 'completed' ? 'outline' : 'solid'}
                                         >
                                             {enrollment.status === 'completed' ? 'Review Cohort' : 'Continue Learning'}

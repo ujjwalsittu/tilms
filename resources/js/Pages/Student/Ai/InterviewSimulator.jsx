@@ -77,7 +77,7 @@ export default function InterviewSimulator({ interviews }) {
                         </Text>
                     </Box>
                     <Button
-                        colorScheme="blue"
+                        colorPalette="blue"
                         onClick={() => setShowForm(!showForm)}
                         size="sm"
                     >
@@ -174,7 +174,7 @@ export default function InterviewSimulator({ interviews }) {
                                         Cancel
                                     </Button>
                                     <Button
-                                        colorScheme="blue"
+                                        colorPalette="blue"
                                         type="submit"
                                         size="sm"
                                         loading={processing}
@@ -235,13 +235,13 @@ export default function InterviewSimulator({ interviews }) {
                                                         {interview.title || getDomainLabel(interview.context_data?.domain) || 'Interview Session'}
                                                     </Text>
                                                     {interview.context_data?.domain && (
-                                                        <Badge colorScheme="blue" fontSize="xs">
+                                                        <Badge colorPalette="blue" fontSize="xs">
                                                             {getDomainLabel(interview.context_data.domain)}
                                                         </Badge>
                                                     )}
                                                     {interview.context_data?.difficulty && (
                                                         <Badge
-                                                            colorScheme={getDifficultyColor(interview.context_data.difficulty)}
+                                                            colorPalette={getDifficultyColor(interview.context_data.difficulty)}
                                                             fontSize="xs"
                                                         >
                                                             {interview.context_data.difficulty}
@@ -279,7 +279,7 @@ export default function InterviewSimulator({ interviews }) {
                                     <Button
                                         size="xs"
                                         variant={link.active ? 'solid' : 'outline'}
-                                        colorScheme={link.active ? 'blue' : 'gray'}
+                                        colorPalette={link.active ? 'blue' : 'gray'}
                                         disabled={!link.url}
                                         dangerouslySetInnerHTML={{ __html: link.label }}
                                     />

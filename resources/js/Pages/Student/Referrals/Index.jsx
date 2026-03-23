@@ -252,7 +252,7 @@ export default function Index({ referralCode, rewards = [], stats = {} }) {
                     <Flex align="center" justify="space-between">
                         <Text fontWeight="semibold">Referred Users</Text>
                         {rewards.length > 0 && (
-                            <Badge colorScheme="purple" variant="subtle">{rewards.length} referral{rewards.length !== 1 ? 's' : ''}</Badge>
+                            <Badge colorPalette="purple" variant="subtle">{rewards.length} referral{rewards.length !== 1 ? 's' : ''}</Badge>
                         )}
                     </Flex>
                 </Box>
@@ -310,7 +310,7 @@ export default function Index({ referralCode, rewards = [], stats = {} }) {
 
                                         {/* Status */}
                                         <Table.Cell>
-                                            <Badge colorScheme={rewardStatusColor[reward.status] ?? 'gray'} textTransform="capitalize">
+                                            <Badge colorPalette={rewardStatusColor[reward.status] ?? 'gray'} textTransform="capitalize">
                                                 {reward.status}
                                             </Badge>
                                         </Table.Cell>

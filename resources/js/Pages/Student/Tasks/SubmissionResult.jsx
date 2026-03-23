@@ -14,7 +14,7 @@ import {
 } from '@chakra-ui/react';
 
 // ─── Score gauge ──────────────────────────────────────────────────────────────
-function ScoreDisplay({ label, score, max = 100, colorScheme = 'blue' }) {
+function ScoreDisplay({ label, score, max = 100, colorPalette = 'blue' }) {
     const pct = Math.round((score / max) * 100);
     const barColor = pct >= 70 ? 'green.400' : pct >= 50 ? 'yellow.400' : 'red.400';
 
@@ -178,7 +178,7 @@ export default function SubmissionResult({ submission, task, cohort }) {
                                 <ScoreDisplay
                                     label="Final Score"
                                     score={submission.instructor_score}
-                                    colorScheme="green"
+                                    colorPalette="green"
                                 />
                             </VStack>
 

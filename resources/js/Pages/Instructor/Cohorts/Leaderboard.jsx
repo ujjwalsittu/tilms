@@ -65,7 +65,7 @@ export default function Leaderboard({ cohort = {}, leaderboard = [] }) {
             {/* Header */}
             <Flex align="center" gap={4} mb={6} flexWrap="wrap">
                 <Link href={route('instructor.cohorts.show', cohort.id)}>
-                    <Button size="sm" variant="ghost" colorScheme="gray">
+                    <Button size="sm" variant="ghost" colorPalette="gray">
                         <FiArrowLeft size={14} style={{ marginRight: 4 }} />
                         Back
                     </Button>
@@ -80,7 +80,7 @@ export default function Leaderboard({ cohort = {}, leaderboard = [] }) {
                         {cohort.type && (
                             <Badge
                                 ml={2}
-                                colorScheme={cohort.type === 'internship' ? 'purple' : 'blue'}
+                                colorPalette={cohort.type === 'internship' ? 'purple' : 'blue'}
                                 variant="subtle"
                                 fontSize="xs"
                             >
@@ -191,7 +191,7 @@ export default function Leaderboard({ cohort = {}, leaderboard = [] }) {
                                             <Table.Cell isNumeric>
                                                 {entry.avg_grade != null ? (
                                                     <Badge
-                                                        colorScheme={
+                                                        colorPalette={
                                                             entry.avg_grade >= 80 ? 'green' :
                                                             entry.avg_grade >= 60 ? 'blue' : 'orange'
                                                         }

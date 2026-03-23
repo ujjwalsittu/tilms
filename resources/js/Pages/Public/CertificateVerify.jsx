@@ -99,7 +99,7 @@ export default function CertificateVerify({ certificate = null, verified = false
                                     </Text>
                                     {cohort.type && (
                                         <Badge
-                                            colorScheme={typeColor[cohort.type] ?? 'gray'}
+                                            colorPalette={typeColor[cohort.type] ?? 'gray'}
                                             mt={1}
                                             px={3}
                                             py={0.5}

@@ -82,7 +82,7 @@ export default function Login({ status, canResetPassword }) {
 
                             <Button
                                 type="submit"
-                                colorScheme="blue"
+                                colorPalette="blue"
                                 w="full"
                                 loading={processing}
                             >

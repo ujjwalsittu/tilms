@@ -77,7 +77,7 @@ function BadgeCard({ userBadge, index }) {
 
             {/* Cohort name */}
             {cohort?.title && (
-                <Badge colorScheme={color} variant="subtle" borderRadius="full" px={2} py={0.5} fontSize="xs" mb={2}>
+                <Badge colorPalette={color} variant="subtle" borderRadius="full" px={2} py={0.5} fontSize="xs" mb={2}>
                     {cohort.title}
                 </Badge>
             )}

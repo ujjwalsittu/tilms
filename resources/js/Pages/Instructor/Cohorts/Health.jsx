@@ -11,7 +11,6 @@ import {
     Badge,
     VStack,
     HStack,
-    Icon,
 } from '@chakra-ui/react';
 import { FiTrendingUp, FiTrendingDown, FiMinus } from 'react-icons/fi';
 
@@ -49,7 +48,7 @@ function MetricCard({ label, value, displayValue, suffix = '%', metricKey, descr
             <Flex justify="space-between" align="flex-start" mb={3}>
                 <Text fontSize="sm" color="gray.500" fontWeight="medium">{label}</Text>
                 <Badge
-                    colorScheme={color === 'yellow' ? 'orange' : color}
+                    colorPalette={color === 'yellow' ? 'orange' : color}
                     variant="subtle"
                     fontSize="xs"
                 >
@@ -65,7 +64,7 @@ function MetricCard({ label, value, displayValue, suffix = '%', metricKey, descr
             {suffix === '%' && (
                 <Progress
                     value={Math.min(value, 100)}
-                    colorScheme={color === 'yellow' ? 'orange' : color}
+                    colorPalette={color === 'yellow' ? 'orange' : color}
                     size="sm"
                     mt={3}
                     borderRadius="full"
@@ -103,14 +102,14 @@ export default function Health({ cohort, metrics = {} }) {
                         <Text fontSize="4xl" fontWeight="bold" color={`${overallColor}.500`}>
                             {overallScore}%
                         </Text>
-                        <Badge colorScheme={overallColor === 'yellow' ? 'orange' : overallColor} fontSize="sm">
+                        <Badge colorPalette={overallColor === 'yellow' ? 'orange' : overallColor} fontSize="sm">
                             Overall Health
                         </Badge>
                     </Box>
                 </Flex>
                 <Progress
                     value={overallScore}
-                    colorScheme={overallColor === 'yellow' ? 'orange' : overallColor}
+                    colorPalette={overallColor === 'yellow' ? 'orange' : overallColor}
                     size="md"
                     mt={4}
                     borderRadius="full"

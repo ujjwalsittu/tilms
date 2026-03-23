@@ -107,7 +107,7 @@ export default function Portfolio({
                         {skills.map((skill) => (
                             <Badge
                                 key={skill}
-                                colorScheme="blue"
+                                colorPalette="blue"
                                 variant="subtle"
                                 borderRadius="full"
                                 px={3}
@@ -142,7 +142,7 @@ export default function Portfolio({
                                             {cohort.title}
                                         </Text>
                                         <Badge
-                                            colorScheme={typeColor[cohort.type] ?? 'gray'}
+                                            colorPalette={typeColor[cohort.type] ?? 'gray'}
                                             ml={2}
                                             flexShrink={0}
                                             fontSize="xs"

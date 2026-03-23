@@ -176,13 +176,13 @@ export default function InterviewChat({ conversation }) {
                                 {conversation.title || 'Interview Session'}
                             </Text>
                             {domain && (
-                                <Badge colorScheme="purple" fontSize="xs">
+                                <Badge colorPalette="purple" fontSize="xs">
                                     {DOMAIN_LABELS[domain] || domain}
                                 </Badge>
                             )}
                             {difficulty && (
                                 <Badge
-                                    colorScheme={DIFFICULTY_COLORS[difficulty] || 'gray'}
+                                    colorPalette={DIFFICULTY_COLORS[difficulty] || 'gray'}
                                     fontSize="xs"
                                 >
                                     {difficulty}
@@ -262,7 +262,7 @@ export default function InterviewChat({ conversation }) {
                                 disabled={processing}
                             />
                             <Button
-                                colorScheme="purple"
+                                colorPalette="purple"
                                 onClick={handleSend}
                                 loading={processing}
                                 alignSelf="flex-end"

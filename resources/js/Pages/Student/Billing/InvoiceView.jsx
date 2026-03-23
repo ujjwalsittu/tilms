@@ -177,7 +177,7 @@ export default function InvoiceView({ invoice }) {
                                 <Text fontWeight="medium" fontSize="sm">{cohort.title ?? 'Course Enrollment'}</Text>
                                 {cohort.type && (
                                     <Badge
-                                        colorScheme={cohort.type === 'internship' ? 'purple' : 'blue'}
+                                        colorPalette={cohort.type === 'internship' ? 'purple' : 'blue'}
                                         variant="subtle"
                                         mt={1}
                                         fontSize="xs"
@@ -224,7 +224,7 @@ export default function InvoiceView({ invoice }) {
                     <Flex justify="space-between" align="center" mb={6}>
                         <HStack gap={2}>
                             <Text fontSize="sm" color="gray.500">Payment Status:</Text>
-                            <Badge colorScheme={statusColor[payment.status] ?? 'gray'} fontSize="sm" px={3} py={1}>
+                            <Badge colorPalette={statusColor[payment.status] ?? 'gray'} fontSize="sm" px={3} py={1}>
                                 {payment.status ?? 'Unknown'}
                             </Badge>
                         </HStack>

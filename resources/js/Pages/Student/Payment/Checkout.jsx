@@ -145,11 +145,11 @@ export default function Checkout({ cohort, razorpayKeyId, environment }) {
                 >
                     <Text fontWeight="semibold" fontSize="lg" mb={2}>{cohort.title}</Text>
                     <HStack gap={2} mb={3}>
-                        <Badge colorScheme={cohort.type === 'internship' ? 'purple' : 'blue'}>
+                        <Badge colorPalette={cohort.type === 'internship' ? 'purple' : 'blue'}>
                             {cohort.type}
                         </Badge>
                         {environment === 'test' && (
-                            <Badge colorScheme="yellow">Test Mode</Badge>
+                            <Badge colorPalette="yellow">Test Mode</Badge>
                         )}
                     </HStack>
                     {cohort.description && (
@@ -217,7 +217,7 @@ export default function Checkout({ cohort, razorpayKeyId, environment }) {
                                 <Button
                                     onClick={applyCoupon}
                                     variant="outline"
-                                    colorScheme={couponApplied ? 'green' : 'purple'}
+                                    colorPalette={couponApplied ? 'green' : 'purple'}
                                     flexShrink={0}
                                     disabled={!couponCode.trim() || couponApplied}
                                 >
@@ -259,7 +259,7 @@ export default function Checkout({ cohort, razorpayKeyId, environment }) {
 
                 {/* Pay Button */}
                 <Button
-                    colorScheme="purple"
+                    colorPalette="purple"
                     size="lg"
                     w="full"
                     onClick={handlePayment}

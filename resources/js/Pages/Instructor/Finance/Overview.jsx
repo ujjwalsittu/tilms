@@ -95,7 +95,7 @@ export default function Overview({ stats = {}, monthlyCohortBreakdown = [] }) {
                                             <Text fontSize="sm">{row.cohort_title}</Text>
                                         </Table.Cell>
                                         <Table.Cell>
-                                            <Badge colorScheme={row.cohort_type === 'internship' ? 'purple' : 'blue'}>
+                                            <Badge colorPalette={row.cohort_type === 'internship' ? 'purple' : 'blue'}>
                                                 {row.cohort_type}
                                             </Badge>
                                         </Table.Cell>

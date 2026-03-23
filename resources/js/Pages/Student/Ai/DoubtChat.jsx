@@ -42,7 +42,7 @@ export default function DoubtChat({ conversation }) {
                                 {conversation.title || 'Doubt Conversation'}
                             </Text>
                             {conversation.context_type && (
-                                <Badge colorScheme="blue" fontSize="xs">
+                                <Badge colorPalette="blue" fontSize="xs">
                                     {conversation.context_type}
                                 </Badge>
                             )}

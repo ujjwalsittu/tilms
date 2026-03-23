@@ -62,7 +62,7 @@ function TaskRow({ cohortTask, enrollment }) {
                                 {cohortTask.order_index}. {task.title}
                             </Text>
                             {task.difficulty && (
-                                <Badge size="sm" colorScheme={difficultyColor[task.difficulty]} variant="subtle">
+                                <Badge size="sm" colorPalette={difficultyColor[task.difficulty]} variant="subtle">
                                     {task.difficulty}
                                 </Badge>
                             )}
@@ -88,7 +88,7 @@ function TaskRow({ cohortTask, enrollment }) {
                     <StatusBadge status={submissionStatus} />
                     {!isLocked && (
                         <Link href={route('student.tasks.show', cohortTask.id)}>
-                            <Button size="xs" colorScheme="blue" variant={submissionStatus === 'not_started' ? 'solid' : 'outline'}>
+                            <Button size="xs" colorPalette="blue" variant={submissionStatus === 'not_started' ? 'solid' : 'outline'}>
                                 {submissionStatus === 'not_started' ? 'Start' :
                                  submissionStatus === 'graded' ? 'Review' : 'View'}
                             </Button>
@@ -99,7 +99,7 @@ function TaskRow({ cohortTask, enrollment }) {
 
             {submission?.instructor_score != null && (
                 <Box mt={2} ml={8}>
-                    <Badge colorScheme={submission.instructor_score >= 70 ? 'green' : 'orange'}>
+                    <Badge colorPalette={submission.instructor_score >= 70 ? 'green' : 'orange'}>
                         Score: {submission.instructor_score}/100
                     </Badge>
                     {submission.instructor_feedback && (
@@ -129,7 +129,7 @@ export default function Show({ cohort, enrollment, tasks = [], announcements = [
                 <Flex justify="space-between" align="flex-start" flexWrap="wrap" gap={4}>
                     <Box flex={1}>
                         <HStack gap={2} mb={2}>
-                            <Badge colorScheme={typeColor[cohort.type] ?? 'gray'}>{cohort.type}</Badge>
+                            <Badge colorPalette={typeColor[cohort.type] ?? 'gray'}>{cohort.type}</Badge>
                             <StatusBadge status={enrollment?.status} />
                         </HStack>
                         <Text fontSize="2xl" fontWeight="bold">{cohort.title}</Text>
@@ -144,7 +144,7 @@ export default function Show({ cohort, enrollment, tasks = [], announcements = [
                             </Flex>
                             <Progress
                                 value={progress}
-                                colorScheme={progress >= 70 ? 'green' : 'blue'}
+                                colorPalette={progress >= 70 ? 'green' : 'blue'}
                                 size="md"
                                 borderRadius="full"
                             />
@@ -156,7 +156,7 @@ export default function Show({ cohort, enrollment, tasks = [], announcements = [
 
                     <Box textAlign="right">
                         {enrollment?.completed_at && (
-                            <Badge colorScheme="green" fontSize="sm" px={3} py={1}>
+                            <Badge colorPalette="green" fontSize="sm" px={3} py={1}>
                                 Completed
                             </Badge>
                         )}

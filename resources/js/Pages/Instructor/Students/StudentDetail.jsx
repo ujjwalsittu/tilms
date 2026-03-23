@@ -87,7 +87,7 @@ export default function StudentDetail({ cohort, student, submissions = [], enrol
                             </Flex>
                             <Progress
                                 value={progress}
-                                colorScheme={progress >= 70 ? 'green' : progress >= 40 ? 'blue' : 'orange'}
+                                colorPalette={progress >= 70 ? 'green' : progress >= 40 ? 'blue' : 'orange'}
                                 size="lg"
                                 borderRadius="full"
                             />
@@ -144,7 +144,7 @@ export default function StudentDetail({ cohort, student, submissions = [], enrol
                         ].map(({ label, value, color }) => (
                             <Flex key={label} justify="space-between" align="center">
                                 <Text fontSize="sm" color="gray.600">{label}</Text>
-                                <Badge colorScheme={color}>{value}</Badge>
+                                <Badge colorPalette={color}>{value}</Badge>
                             </Flex>
                         ))}
 
@@ -204,7 +204,7 @@ export default function StudentDetail({ cohort, student, submissions = [], enrol
                                         </Table.Cell>
                                         <Table.Cell>
                                             {submission.ai_score != null ? (
-                                                <Badge colorScheme={submission.ai_score >= 70 ? 'green' : 'orange'}>
+                                                <Badge colorPalette={submission.ai_score >= 70 ? 'green' : 'orange'}>
                                                     {submission.ai_score}/100
                                                 </Badge>
                                             ) : (
@@ -213,7 +213,7 @@ export default function StudentDetail({ cohort, student, submissions = [], enrol
                                         </Table.Cell>
                                         <Table.Cell>
                                             {submission.instructor_score != null ? (
-                                                <Badge colorScheme={submission.instructor_score >= 70 ? 'green' : 'orange'}>
+                                                <Badge colorPalette={submission.instructor_score >= 70 ? 'green' : 'orange'}>
                                                     {submission.instructor_score}/100
                                                 </Badge>
                                             ) : (

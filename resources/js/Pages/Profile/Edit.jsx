@@ -31,7 +31,7 @@ function UpdateProfileForm({ mustVerifyEmail, status }) {
                         <Input type="email" value={data.email} onChange={(e) => setData('email', e.target.value)} />
                         {errors.email && <Text fontSize="sm" color="red.500" mt={1}>{errors.email}</Text>}
                     </Box>
-                    <Button type="submit" colorScheme="blue" alignSelf="start" loading={processing}>Save</Button>
+                    <Button type="submit" colorPalette="blue" alignSelf="start" loading={processing}>Save</Button>
                 </VStack>
             </form>
         </Box>
@@ -71,7 +71,7 @@ function UpdatePasswordForm() {
                         <Text fontSize="sm" fontWeight="medium" mb={1}>Confirm Password</Text>
                         <Input type="password" value={data.password_confirmation} onChange={(e) => setData('password_confirmation', e.target.value)} />
                     </Box>
-                    <Button type="submit" colorScheme="blue" alignSelf="start" loading={processing}>Save</Button>
+                    <Button type="submit" colorPalette="blue" alignSelf="start" loading={processing}>Save</Button>
                 </VStack>
             </form>
         </Box>
@@ -98,7 +98,7 @@ function DeleteUserForm() {
                         <Input type="password" value={data.password} onChange={(e) => setData('password', e.target.value)} placeholder="Enter your password to confirm" />
                         {errors.password && <Text fontSize="sm" color="red.500" mt={1}>{errors.password}</Text>}
                     </Box>
-                    <Button type="submit" colorScheme="red" alignSelf="start" loading={processing}>Delete Account</Button>
+                    <Button type="submit" colorPalette="red" alignSelf="start" loading={processing}>Delete Account</Button>
                 </VStack>
             </form>
         </Box>

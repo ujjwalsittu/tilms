@@ -126,7 +126,7 @@ export default function View({ certificate = {} }) {
                             </Text>
                             {cohort.type && (
                                 <Badge
-                                    colorScheme={typeColor[cohort.type] ?? 'gray'}
+                                    colorPalette={typeColor[cohort.type] ?? 'gray'}
                                     fontSize="sm"
                                     px={3}
                                     py={0.5}

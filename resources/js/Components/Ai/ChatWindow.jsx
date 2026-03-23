@@ -100,7 +100,7 @@ export default function ChatWindow({
                         flex={1}
                     />
                     <Button
-                        colorScheme="blue"
+                        colorPalette="blue"
                         onClick={handleSend}
                         loading={processing}
                         alignSelf="flex-end"

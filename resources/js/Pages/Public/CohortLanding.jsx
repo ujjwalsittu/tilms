@@ -84,7 +84,7 @@ export default function CohortLanding({ cohort, instructor, taskCount = 0, enrol
                         <HStack gap={3}>
                             {auth?.user ? (
                                 <Link href={route('student.dashboard')}>
-                                    <Button size="sm" colorScheme="blue">Go to Dashboard</Button>
+                                    <Button size="sm" colorPalette="blue">Go to Dashboard</Button>
                                 </Link>
                             ) : (
                                 <>
@@ -92,7 +92,7 @@ export default function CohortLanding({ cohort, instructor, taskCount = 0, enrol
                                         <Button size="sm" variant="ghost">Login</Button>
                                     </Link>
                                     <Link href={route('register')}>
-                                        <Button size="sm" colorScheme="blue">Sign Up</Button>
+                                        <Button size="sm" colorPalette="blue">Sign Up</Button>
                                     </Link>
                                 </>
                             )}
@@ -107,11 +107,11 @@ export default function CohortLanding({ cohort, instructor, taskCount = 0, enrol
                     <SimpleGrid columns={{ base: 1, lg: 2 }} gap={10} align="center">
                         <Box>
                             <HStack gap={2} mb={4}>
-                                <Badge colorScheme={typeColor[cohort.type] ?? 'blue'} variant="solid" fontSize="sm">
+                                <Badge colorPalette={typeColor[cohort.type] ?? 'blue'} variant="solid" fontSize="sm">
                                     {cohort.type}
                                 </Badge>
                                 {cohort.status === 'registration_open' && (
-                                    <Badge colorScheme="green" variant="solid" fontSize="sm">
+                                    <Badge colorPalette="green" variant="solid" fontSize="sm">
                                         Enrolling Now
                                     </Badge>
                                 )}
@@ -140,15 +140,14 @@ export default function CohortLanding({ cohort, instructor, taskCount = 0, enrol
                                     <Link href={`/register/${cohort.slug ?? cohort.id}`}>
                                         <Button
                                             size="lg"
-                                            colorScheme="orange"
-                                            rightIcon={<FiArrowRight />}
+                                            colorPalette="orange"
                                         >
                                             Enroll for {cohort.price_currency ?? 'INR'} {Number(cohort.price_amount).toLocaleString()}
                                         </Button>
                                     </Link>
                                 ) : (
                                     <Link href={`/register/${cohort.slug ?? cohort.id}`}>
-                                        <Button size="lg" colorScheme="green" rightIcon={<FiArrowRight />}>
+                                        <Button size="lg" colorPalette="green">
                                             Enroll for Free
                                         </Button>
                                     </Link>
@@ -329,7 +328,7 @@ export default function CohortLanding({ cohort, instructor, taskCount = 0, enrol
                             </VStack>
 
                             <Link href={`/register/${cohort.slug ?? cohort.id}`}>
-                                <Button w="full" colorScheme="blue" size="lg">
+                                <Button w="full" colorPalette="blue" size="lg">
                                     Enroll Now
                                 </Button>
                             </Link>

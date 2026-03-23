@@ -24,7 +24,7 @@ const statusColor = {
 
 function PaymentStatusBadge({ status }) {
     return (
-        <Badge colorScheme={statusColor[status] ?? 'gray'} textTransform="capitalize">
+        <Badge colorPalette={statusColor[status] ?? 'gray'} textTransform="capitalize">
             {status}
         </Badge>
     );
@@ -41,7 +41,7 @@ function EmptyState() {
                 Your payment history will appear here once you enroll in a cohort.
             </Text>
             <Link href={route('student.cohorts.index')}>
-                <Button colorScheme="purple" size="sm">Browse Cohorts</Button>
+                <Button colorPalette="purple" size="sm">Browse Cohorts</Button>
             </Link>
         </Box>
     );
@@ -179,7 +179,7 @@ export default function Index({ payments }) {
                                                     {payment.cohort?.type && (
                                                         <Badge
                                                             size="sm"
-                                                            colorScheme={payment.cohort.type === 'internship' ? 'purple' : 'blue'}
+                                                            colorPalette={payment.cohort.type === 'internship' ? 'purple' : 'blue'}
                                                             variant="subtle"
                                                         >
                                                             {payment.cohort.type}
@@ -219,7 +219,7 @@ export default function Index({ payments }) {
                                                             <Button
                                                                 size="xs"
                                                                 variant="outline"
-                                                                colorScheme="gray"
+                                                                colorPalette="gray"
                                                                 aria-label="View invoice"
                                                             >
                                                                 <FiEye />
@@ -233,7 +233,7 @@ export default function Index({ payments }) {
                                                             <Button
                                                                 size="xs"
                                                                 variant="outline"
-                                                                colorScheme="purple"
+                                                                colorPalette="purple"
                                                                 aria-label="Download invoice"
                                                             >
                                                                 <FiDownload />
